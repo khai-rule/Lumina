@@ -1,4 +1,6 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Insight {
   id: string;
@@ -47,7 +49,7 @@ const AIInsightsPanel = ({ insights, onActionClick }: AIInsightsPanelProps) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg p-6 shadow-subtle">
+    <Card className="p-6 shadow-subtle">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="text-lg font-semibold text-foreground mb-1">AI-Powered Insights</h3>
@@ -77,19 +79,20 @@ const AIInsightsPanel = ({ insights, onActionClick }: AIInsightsPanelProps) => {
                 </div>
                 <p className="text-sm text-muted-foreground mb-3">{insight.description}</p>
                 {insight.actionLabel && (
-                  <button
+                  <Button
+                    variant="link"
                     onClick={() => onActionClick(insight.id)}
-                    className="text-sm text-primary font-medium hover:underline focus-ring"
+                    className="p-0 h-auto text-sm font-medium"
                   >
                     {insight.actionLabel}
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 

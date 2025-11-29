@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/Textarea';
+import { Button } from '@/components/ui/Button';
 
 interface Requirement {
   id: string;
@@ -109,13 +112,15 @@ const RequirementForm = ({
         <h3 className="text-lg font-semibold text-foreground">
           {requirement ? 'Edit Requirement' : 'New Requirement'}
         </h3>
-        <button
+        <Button
+          variant="ghost"
+          size="icon"
           type="button"
           onClick={onCancel}
-          className="p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring"
+          className="text-muted-foreground hover:text-foreground"
         >
           <Icon name="XMarkIcon" size={20} />
-        </button>
+        </Button>
       </div>
 
       {/* Title */}
@@ -123,14 +128,12 @@ const RequirementForm = ({
         <label htmlFor="title" className="block text-sm font-medium text-foreground mb-2">
           Requirement Title *
         </label>
-        <input
+        <Input
           type="text"
           id="title"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className={`w-full px-4 py-2.5 bg-background border rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-default ${
-            errors.title ? 'border-error' : 'border-input'
-          }`}
+          className={errors.title ? 'border-error' : ''}
           placeholder="Enter a clear, concise requirement title"
         />
         {errors.title && (
@@ -143,14 +146,12 @@ const RequirementForm = ({
         <label htmlFor="description" className="block text-sm font-medium text-foreground mb-2">
           Description *
         </label>
-        <textarea
+        <Textarea
           id="description"
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           rows={4}
-          className={`w-full px-4 py-2.5 bg-background border rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-default resize-none ${
-            errors.description ? 'border-error' : 'border-input'
-          }`}
+          className={`resize-none ${errors.description ? 'border-error' : ''}`}
           placeholder="Provide detailed description of the requirement"
         />
         {errors.description && (
@@ -200,14 +201,12 @@ const RequirementForm = ({
         <label htmlFor="stakeholder" className="block text-sm font-medium text-foreground mb-2">
           Assigned Stakeholder *
         </label>
-        <input
+        <Input
           type="text"
           id="stakeholder"
           value={formData.stakeholder}
           onChange={(e) => setFormData({ ...formData, stakeholder: e.target.value })}
-          className={`w-full px-4 py-2.5 bg-background border rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-default ${
-            errors.stakeholder ? 'border-error' : 'border-input'
-          }`}
+          className={errors.stakeholder ? 'border-error' : ''}
           placeholder="Enter stakeholder name or role"
         />
         {errors.stakeholder && (
@@ -221,33 +220,37 @@ const RequirementForm = ({
           <label className="block text-sm font-medium text-foreground">
             Acceptance Criteria *
           </label>
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             type="button"
             onClick={addAcceptanceCriterion}
-            className="flex items-center space-x-1 text-sm text-primary hover:underline focus-ring"
+            className="flex items-center space-x-1 text-primary hover:text-primary/80 hover:bg-primary/10"
           >
             <Icon name="PlusIcon" size={16} />
             <span>Add Criterion</span>
-          </button>
+          </Button>
         </div>
         <div className="space-y-2">
           {formData.acceptanceCriteria?.map((criterion, index) => (
             <div key={index} className="flex items-start space-x-2">
-              <input
+              <Input
                 type="text"
                 value={criterion}
                 onChange={(e) => updateAcceptanceCriterion(index, e.target.value)}
-                className="flex-1 px-4 py-2.5 bg-background border border-input rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-default"
+                className="flex-1"
                 placeholder={`Acceptance criterion ${index + 1}`}
               />
               {formData.acceptanceCriteria && formData.acceptanceCriteria.length > 1 && (
-                <button
+                <Button
+                  variant="ghost"
+                  size="icon"
                   type="button"
                   onClick={() => removeAcceptanceCriterion(index)}
-                  className="p-2.5 rounded-md text-error hover:bg-error/10 transition-default focus-ring"
+                  className="text-error hover:bg-error/10 hover:text-error"
                 >
                   <Icon name="TrashIcon" size={18} />
-                </button>
+                </Button>
               )}
             </div>
           ))}
@@ -259,19 +262,18 @@ const RequirementForm = ({
 
       {/* Form Actions */}
       <div className="flex items-center justify-end space-x-3 pt-4 border-t border-border">
-        <button
+        <Button
+          variant="outline"
           type="button"
           onClick={onCancel}
-          className="px-6 py-2.5 border border-input rounded-md text-foreground hover:bg-muted transition-default focus-ring"
         >
           Cancel
-        </button>
-        <button
+        </Button>
+        <Button
           type="submit"
-          className="px-6 py-2.5 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default focus-ring"
         >
           {requirement ? 'Update Requirement' : 'Save Requirement'}
-        </button>
+        </Button>
       </div>
     </form>
   );

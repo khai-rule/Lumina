@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Card, CardContent } from '@/components/ui/Card';
 
 interface Stakeholder {
   id: string;
@@ -148,110 +151,107 @@ const StakeholderForm = ({ stakeholders, onUpdate }: StakeholderFormProps) => {
       )}
 
       {!showAddForm ? (
-        <button
+        <Button
           onClick={() => setShowAddForm(true)}
-          className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-muted border-2 border-dashed border-border rounded-lg text-muted-foreground hover:bg-muted/50 hover:border-primary hover:text-primary transition-default"
+          variant="outline"
+          className="w-full h-auto py-8 border-2 border-dashed border-border hover:border-primary hover:bg-muted/50 flex-col gap-2"
         >
-          <Icon name="PlusCircleIcon" size={20} />
-          <span className="font-medium">Add Stakeholder</span>
-        </button>
+          <Icon name="PlusCircleIcon" size={24} />
+          <span className="font-medium text-base">Add Stakeholder</span>
+        </Button>
       ) : (
-        <div className="bg-card border border-border rounded-lg p-6 space-y-4">
-          <h4 className="font-medium text-foreground">
-            {editingId ? 'Edit Stakeholder' : 'Add New Stakeholder'}
-          </h4>
+        <Card>
+          <CardContent className="p-6 space-y-4">
+            <h4 className="font-medium text-foreground">
+              {editingId ? 'Edit Stakeholder' : 'Add New Stakeholder'}
+            </h4>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Name <span className="text-error">*</span>
-              </label>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="John Doe"
-                className="w-full px-4 py-2.5 bg-background border border-input rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default"
-              />
-            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Name <span className="text-error">*</span>
+                </label>
+                <Input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="John Doe"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Role <span className="text-error">*</span>
-              </label>
-              <input
-                type="text"
-                value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                placeholder="Product Owner"
-                className="w-full px-4 py-2.5 bg-background border border-input rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Role <span className="text-error">*</span>
+                </label>
+                <Input
+                  type="text"
+                  value={formData.role}
+                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                  placeholder="Product Owner"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Email <span className="text-error">*</span>
-              </label>
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="john.doe@example.com"
-                className="w-full px-4 py-2.5 bg-background border border-input rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Email <span className="text-error">*</span>
+                </label>
+                <Input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="john.doe@example.com"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">Phone</label>
-              <input
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="+1 (555) 123-4567"
-                className="w-full px-4 py-2.5 bg-background border border-input rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">Phone</label>
+                <Input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  placeholder="+1 (555) 123-4567"
+                />
+              </div>
 
-            <div className="lg:col-span-2">
-              <label className="block text-sm font-medium text-foreground mb-2">Priority Level</label>
-              <div className="flex space-x-3">
-                {(['high', 'medium', 'low'] as const).map((priority) => (
-                  <button
-                    key={priority}
-                    onClick={() => setFormData({ ...formData, priority })}
-                    className={`flex-1 px-4 py-2.5 rounded-md font-medium text-sm transition-default ${
-                      formData.priority === priority
-                        ? priority === 'high' ?'bg-error text-error-foreground'
-                          : priority === 'medium' ?'bg-warning text-warning-foreground' :'bg-secondary text-secondary-foreground' :'bg-muted text-muted-foreground hover:bg-muted/50'
-                    }`}
-                  >
-                    {priority.charAt(0).toUpperCase() + priority.slice(1)}
-                  </button>
-                ))}
+              <div className="lg:col-span-2">
+                <label className="block text-sm font-medium text-foreground mb-2">Priority Level</label>
+                <div className="flex space-x-3">
+                  {(['high', 'medium', 'low'] as const).map((priority) => (
+                    <Button
+                      key={priority}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, priority })}
+                      variant={formData.priority === priority ? (priority === 'high' ? 'destructive' : priority === 'medium' ? 'secondary' : 'default') : 'outline'}
+                      className={`flex-1 ${formData.priority === priority && priority === 'medium' ? 'bg-warning text-warning-foreground hover:bg-warning/90' : ''}`}
+                    >
+                      {priority.charAt(0).toUpperCase() + priority.slice(1)}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="flex items-center space-x-3 pt-2">
-            <button
-              onClick={editingId ? handleUpdate : handleAdd}
-              disabled={!formData.name || !formData.role || !formData.email}
-              className="flex-1 px-4 py-2.5 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {editingId ? 'Update Stakeholder' : 'Add Stakeholder'}
-            </button>
-            <button
-              onClick={() => {
-                setShowAddForm(false);
-                setEditingId(null);
-                setFormData({ name: '', role: '', email: '', phone: '', priority: 'medium' });
-              }}
-              className="px-4 py-2.5 bg-muted text-foreground rounded-md font-medium hover:bg-muted/50 transition-default"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
+            <div className="flex items-center space-x-3 pt-2">
+              <Button
+                onClick={editingId ? handleUpdate : handleAdd}
+                disabled={!formData.name || !formData.role || !formData.email}
+                className="flex-1"
+              >
+                {editingId ? 'Update Stakeholder' : 'Add Stakeholder'}
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowAddForm(false);
+                  setEditingId(null);
+                  setFormData({ name: '', role: '', email: '', phone: '', priority: 'medium' });
+                }}
+                variant="secondary"
+              >
+                Cancel
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

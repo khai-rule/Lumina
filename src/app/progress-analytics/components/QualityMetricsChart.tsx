@@ -1,4 +1,5 @@
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, ResponsiveContainer } from 'recharts';
+import { Card } from '@/components/ui/Card';
 
 interface QualityMetric {
   category: string;
@@ -12,7 +13,7 @@ interface QualityMetricsChartProps {
 
 const QualityMetricsChart = ({ data }: QualityMetricsChartProps) => {
   return (
-    <div className="bg-card border border-border rounded-lg p-6 shadow-subtle">
+    <Card className="p-6 shadow-subtle">
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-foreground mb-1">Quality Metrics</h3>
         <p className="text-sm text-muted-foreground">Project quality vs industry benchmarks</p>
@@ -54,7 +55,7 @@ const QualityMetricsChart = ({ data }: QualityMetricsChartProps) => {
           </RadarChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </Card>
   );
 };
 

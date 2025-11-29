@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Icon from '@/components/ui/AppIcon';
 import AppImage from '@/components/ui/AppImage';
+import { Button } from '@/components/ui/Button';
 
 interface Project {
   id: string;
@@ -123,21 +124,28 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
         {/* Action Buttons */}
         <div className="flex items-center space-x-2">
-          <Link
-            href={`/phase-navigation?project=${project.id}`}
-            className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-default focus-ring text-center"
+          <Button
+            asChild
+            className="flex-1"
           >
-            Continue
-          </Link>
-          <Link
-            href={`/project-details?id=${project.id}`}
-            className="px-4 py-2 border border-border rounded-md text-sm font-medium text-foreground hover:bg-muted transition-default focus-ring"
+            <Link href={`/phase-navigation?project=${project.id}`}>
+              Continue
+            </Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
           >
-            Details
-          </Link>
-          <button className="p-2 border border-border rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring">
+            <Link href={`/project-details?id=${project.id}`}>
+              Details
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+          >
             <Icon name="EllipsisVerticalIcon" size={16} />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

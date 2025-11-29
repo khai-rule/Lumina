@@ -8,6 +8,9 @@ import AIAssistancePanel from './AIAssistancePanel';
 import RequirementDetailsModal from './RequirementDetailsModal';
 import RequirementTemplates from './RequirementTemplates';
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
 
 interface Category {
   id: string;
@@ -332,55 +335,62 @@ const RequirementsInteractive = () => {
       <div className="flex-1 overflow-y-auto">
         <div className="p-6 space-y-6">
           {/* Search and Filters */}
-          <div className="bg-card border border-border rounded-lg p-4">
+          <Card className="p-4">
             <div className="flex flex-col lg:flex-row lg:items-center gap-4">
               <div className="flex-1 relative">
                 <Icon
                   name="MagnifyingGlassIcon"
                   size={20}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground z-10"
                 />
-                <input
+                <Input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search requirements..."
-                  className="w-full pl-10 pr-4 py-2.5 bg-background border border-input rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-default"
+                  className="pl-10"
                 />
               </div>
               <div className="flex items-center gap-2">
-                <select
-                  value={filterPriority}
-                  onChange={(e) => setFilterPriority(e.target.value)}
-                  className="px-4 py-2.5 bg-background border border-input rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-default"
-                >
-                  <option value="all">All Priorities</option>
-                  <option value="critical">Critical</option>
-                  <option value="high">High</option>
-                  <option value="medium">Medium</option>
-                  <option value="low">Low</option>
-                </select>
-                <select
-                  value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value)}
-                  className="px-4 py-2.5 bg-background border border-input rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-default"
-                >
-                  <option value="all">All Status</option>
-                  <option value="draft">Draft</option>
-                  <option value="review">In Review</option>
-                  <option value="approved">Approved</option>
-                  <option value="rejected">Rejected</option>
-                </select>
-                <button
+                <div className="relative">
+                  <select
+                    value={filterPriority}
+                    onChange={(e) => setFilterPriority(e.target.value)}
+                    className="h-10 px-4 py-2 bg-background border border-input rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-default appearance-none pr-8"
+                  >
+                    <option value="all">All Priorities</option>
+                    <option value="critical">Critical</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                  </select>
+                  <Icon name="ChevronDownIcon" size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+                </div>
+                <div className="relative">
+                  <select
+                    value={filterStatus}
+                    onChange={(e) => setFilterStatus(e.target.value)}
+                    className="h-10 px-4 py-2 bg-background border border-input rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-default appearance-none pr-8"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="draft">Draft</option>
+                    <option value="review">In Review</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                  <Icon name="ChevronDownIcon" size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+                </div>
+                <Button
+                  variant="outline"
                   onClick={handleExport}
-                  className="flex items-center space-x-2 px-4 py-2.5 border border-input rounded-md text-foreground hover:bg-muted transition-default focus-ring"
+                  className="flex items-center space-x-2"
                 >
                   <Icon name="ArrowDownTrayIcon" size={18} />
                   <span className="hidden lg:inline">Export</span>
-                </button>
+                </Button>
               </div>
             </div>
-          </div>
+          </Card>
 
           {/* AI Assistance Panel */}
           <AIAssistancePanel
@@ -399,7 +409,7 @@ const RequirementsInteractive = () => {
 
           {/* Requirement Form */}
           {showForm && (
-            <div className="bg-card border border-border rounded-lg p-6">
+            <Card className="p-6">
               <RequirementForm
                 requirement={editingRequirement}
                 categoryId={activeCategory}
@@ -409,7 +419,7 @@ const RequirementsInteractive = () => {
                   setEditingRequirement(undefined);
                 }}
               />
-            </div>
+            </Card>
           )}
 
           {/* Requirements List */}
@@ -422,30 +432,30 @@ const RequirementsInteractive = () => {
                     ({filteredRequirements.length} requirement{filteredRequirements.length !== 1 ? 's' : ''})
                   </span>
                 </h3>
-                <button
+                <Button
                   onClick={() => setShowForm(true)}
-                  className="flex items-center space-x-2 px-4 py-2.5 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default focus-ring"
+                  className="flex items-center space-x-2"
                 >
                   <Icon name="PlusIcon" size={18} />
                   <span>Add Requirement</span>
-                </button>
+                </Button>
               </div>
 
               {filteredRequirements.length === 0 ? (
-                <div className="bg-card border border-border rounded-lg p-12 text-center">
+                <Card className="p-12 text-center">
                   <Icon name="DocumentTextIcon" size={64} className="mx-auto text-muted-foreground mb-4" />
                   <h4 className="text-lg font-semibold text-foreground mb-2">No Requirements Found</h4>
                   <p className="text-muted-foreground mb-6">
                     {searchQuery || filterPriority !== 'all' || filterStatus !== 'all' ?'Try adjusting your filters or search query' :'Get started by adding your first requirement or using a template'}
                   </p>
-                  <button
+                  <Button
                     onClick={() => setShowForm(true)}
-                    className="inline-flex items-center space-x-2 px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default focus-ring"
+                    className="inline-flex items-center space-x-2"
                   >
                     <Icon name="PlusIcon" size={20} />
                     <span>Add First Requirement</span>
-                  </button>
-                </div>
+                  </Button>
+                </Card>
               ) : (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {filteredRequirements.map((requirement) => (

@@ -12,5 +12,5 @@ export async function POST(req: Request) {
     system: 'You are an expert SDLC assistant. Help the user with their software development projects. Provide concise and practical advice.',
   });
 
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }

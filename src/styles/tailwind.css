@@ -69,6 +69,16 @@
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Inter', sans-serif;
+    @apply text-foreground;
+  }
+
+  h1 { @apply text-heading-1; }
+  h2 { @apply text-heading-2; }
+  h3 { @apply text-heading-3; }
+  h4 { @apply text-heading-4; }
+  
+  p {
+    @apply text-body-default text-muted-foreground;
   }
   
   code, pre, .font-mono {

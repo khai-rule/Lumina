@@ -1,4 +1,6 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Requirement {
   id: string;
@@ -66,27 +68,31 @@ const RequirementCard = ({
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg p-5 hover:shadow-hover transition-default">
+    <Card className="p-5 hover:shadow-hover transition-default">
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
           <h4 className="font-semibold text-foreground mb-2">{requirement.title}</h4>
           <p className="text-sm text-muted-foreground line-clamp-2">{requirement.description}</p>
         </div>
         <div className="flex items-center space-x-1 ml-4">
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => onEdit(requirement)}
-            className="p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground"
             title="Edit requirement"
           >
             <Icon name="PencilIcon" size={16} />
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => onDelete(requirement.id)}
-            className="p-2 rounded-md text-muted-foreground hover:bg-error/10 hover:text-error transition-default focus-ring"
+            className="h-8 w-8 text-muted-foreground hover:text-error hover:bg-error/10"
             title="Delete requirement"
           >
             <Icon name="TrashIcon" size={16} />
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -113,14 +119,15 @@ const RequirementCard = ({
         </div>
       </div>
 
-      <button
+      <Button
+        variant="secondary"
         onClick={() => onViewDetails(requirement)}
-        className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-muted text-foreground rounded-md text-sm font-medium hover:bg-muted/80 transition-default focus-ring"
+        className="w-full flex items-center justify-center space-x-2"
       >
         <span>View Details</span>
         <Icon name="ArrowRightIcon" size={16} />
-      </button>
-    </div>
+      </Button>
+    </Card>
   );
 };
 

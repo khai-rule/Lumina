@@ -1,9 +1,12 @@
-'use client';
+"use client"
 
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
-import { Loader2, Mail, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/Card';
 
 export default function AuthModal() {
   const [isLogin, setIsLogin] = useState(true);
@@ -75,79 +78,89 @@ export default function AuthModal() {
 
   if (showSuccess) {
     return (
-      <div className="w-full max-w-md bg-card border border-border rounded-xl shadow-lg p-8 space-y-6 text-center">
-        <div className="flex justify-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-            <Mail className="w-8 h-8 text-green-600" />
+      <Card className="w-full max-w-md text-center">
+        <CardHeader>
+          <div className="flex justify-center mb-4">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+              <Icon name="EnvelopeIcon" size={32} className="text-green-600" />
+            </div>
           </div>
-        </div>
-        <h2 className="text-2xl font-bold tracking-tight">Check your email</h2>
-        <p className="text-muted-foreground">
-          We've sent a confirmation link to <strong>{email}</strong>. Please click the link to activate your account.
-        </p>
-        <button
-          onClick={() => {
-            setShowSuccess(false);
-            setIsLogin(true);
-          }}
-          className="w-full bg-primary text-primary-foreground font-medium py-3 px-4 rounded-lg hover:opacity-90 transition-opacity"
-        >
-          Back to Sign In
-        </button>
-      </div>
+          <CardTitle>Check your email</CardTitle>
+          <CardDescription>
+            We've sent a confirmation link to <strong>{email}</strong>. Please click the link to activate your account.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button
+            onClick={() => {
+              setShowSuccess(false);
+              setIsLogin(true);
+            }}
+            className="w-full"
+          >
+            Back to Sign In
+          </Button>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className="w-full max-w-md bg-card border border-border rounded-xl shadow-lg p-8 space-y-6">
-      <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">
+    <Card className="w-full max-w-md">
+      <CardHeader className="text-center space-y-2">
+        <CardTitle>
           {isLogin ? 'Welcome Back' : 'Create Account'}
-        </h2>
-        <p className="text-muted-foreground">
+        </CardTitle>
+        <CardDescription>
           {isLogin ? 'Enter your credentials to access your workspace.' : 'Start your intelligent SDLC journey today.'}
-        </p>
-      </div>
+        </CardDescription>
+      </CardHeader>
 
-      {error && (
-        <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md border border-destructive/20">
-          {error}
-        </div>
-      )}
+      <CardContent className="space-y-4">
+        {error && (
+          <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md border border-destructive/20">
+            {error}
+          </div>
+        )}
 
-      <div className="space-y-4">
         <form onSubmit={handleEmailAuth} className="space-y-4">
           <div className="space-y-2">
             <div className="relative">
-              <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-              <input
+              <div className="absolute left-3 top-3 text-muted-foreground">
+                <Icon name="EnvelopeIcon" size={20} />
+              </div>
+              <Input
                 type="email"
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full pl-10 pr-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
+                className="pl-10"
               />
             </div>
           </div>
           <div className="space-y-2">
             <div className="relative">
-              <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-              <input
+              <div className="absolute left-3 top-3 text-muted-foreground">
+                <Icon name="LockClosedIcon" size={20} />
+              </div>
+              <Input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full pl-10 pr-10 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
+                className="pl-10 pr-10"
               />
-              <button
+              <Button
                 type="button"
+                variant="ghost"
+                size="icon"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3 text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
               >
-                {showPassword ?  <Eye className="h-5 w-5" /> :  <EyeOff className="h-5 w-5" />}
-              </button>
+                {showPassword ? <Icon name="EyeIcon" size={20} /> : <Icon name="EyeSlashIcon" size={20} />}
+              </Button>
             </div>
             {!isLogin && (
               <div className="grid grid-cols-1 gap-1 mt-2">
@@ -164,48 +177,51 @@ export default function AuthModal() {
           {!isLogin && (
             <div className="space-y-2">
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                <input
+                <div className="absolute left-3 top-3 text-muted-foreground">
+                  <Icon name="LockClosedIcon" size={20} />
+                </div>
+                <Input
                   type={showConfirmPassword ? 'text' : 'password'}
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
-                  className="w-full pl-10 pr-10 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
+                  className="pl-10 pr-10"
                 />
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="icon"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-3 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                 >
-                  {showConfirmPassword ?   <Eye className="h-5 w-5" /> : <EyeOff className="h-5 w-5" />}
-                </button>
+                  {showConfirmPassword ? <Icon name="EyeIcon" size={20} /> : <Icon name="EyeSlashIcon" size={20} />}
+                </Button>
               </div>
             </div>
           )}
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-primary text-primary-foreground font-medium py-3 px-4 rounded-lg hover:opacity-90 flex items-center justify-center gap-2 transition-opacity"
-          >
-            {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+          <Button type="submit" disabled={isLoading} className="w-full">
+            {isLoading ? (
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
               <>
-                {isLogin ? 'Sign In' : 'Create Account'} <ArrowRight className="w-5 h-5" />
+                {isLogin ? 'Sign In' : 'Create Account'} <Icon name="ArrowRightIcon" size={20} className="ml-2" />
               </>
             )}
-          </button>
+          </Button>
         </form>
-      </div>
+      </CardContent>
 
-      <div className="text-center text-sm">
-        <button
+      <CardFooter className="justify-center">
+        <Button
+          variant="link"
           onClick={() => setIsLogin(!isLogin)}
-          className="text-muted-foreground hover:text-foreground transition-colors"
+          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
-        </button>
-      </div>
-    </div>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface AnalysisResult {
   score: number;
@@ -111,7 +113,7 @@ const AIAnalysisPanel = ({ hasDiagramContent, onAnalyze }: AIAnalysisPanelProps)
   };
 
   return (
-    <div className="w-full lg:w-80 bg-card border border-border rounded-lg overflow-hidden">
+    <Card className="w-full lg:w-80 overflow-hidden flex flex-col p-0">
       {/* Header */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between mb-3">
@@ -119,27 +121,27 @@ const AIAnalysisPanel = ({ hasDiagramContent, onAnalyze }: AIAnalysisPanelProps)
           <Icon name="SparklesIcon" size={20} className="text-primary" />
         </div>
         
-        <button
+        <Button
           onClick={handleAnalyze}
           disabled={!hasDiagramContent || isAnalyzing}
-          className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-default disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full"
         >
           {isAnalyzing ? (
             <>
-              <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin"></div>
+              <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin mr-2"></div>
               <span>Analyzing...</span>
             </>
           ) : (
             <>
-              <Icon name="MagnifyingGlassIcon" size={16} />
+              <Icon name="MagnifyingGlassIcon" size={16} className="mr-2" />
               <span>Analyze Diagram</span>
             </>
           )}
-        </button>
+        </Button>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden flex flex-col">
         {!analysisResult && !isAnalyzing && (
           <div className="p-6 text-center">
             <Icon name="ChartBarIcon" size={48} className="mx-auto text-muted-foreground mb-3" />
@@ -168,18 +170,19 @@ const AIAnalysisPanel = ({ hasDiagramContent, onAnalyze }: AIAnalysisPanelProps)
                 { id: 'suggestions', name: 'Suggestions', icon: 'LightBulbIcon' },
                 { id: 'issues', name: 'Issues', icon: 'ExclamationTriangleIcon' },
               ].map((tab) => (
-                <button
+                <Button
                   key={tab.id}
+                  variant={activeTab === tab.id ? 'default' : 'ghost'}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex-1 flex items-center justify-center space-x-1 px-3 py-2 text-sm font-medium transition-default ${
+                  className={`flex-1 rounded-none h-auto py-2 ${
                     activeTab === tab.id
                       ? 'bg-primary text-primary-foreground'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
-                  <Icon name={tab.icon as any} size={16} />
+                  <Icon name={tab.icon as any} size={16} className="mr-1" />
                   <span className="hidden lg:inline">{tab.name}</span>
-                </button>
+                </Button>
               ))}
             </div>
 
@@ -259,7 +262,7 @@ const AIAnalysisPanel = ({ hasDiagramContent, onAnalyze }: AIAnalysisPanelProps)
           </div>
         )}
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/Textarea';
 
 interface ProjectBasicInfo {
   projectName: string;
@@ -58,16 +60,14 @@ const ProjectBasicInfoForm = ({ data, onUpdate }: ProjectBasicInfoFormProps) => 
           <label htmlFor="projectName" className="block text-sm font-medium text-foreground mb-2">
             Project Name <span className="text-error">*</span>
           </label>
-          <input
+          <Input
             type="text"
             id="projectName"
             value={formData.projectName}
             onChange={(e) => handleChange('projectName', e.target.value)}
             onBlur={() => validateField('projectName')}
             placeholder="e.g., E-Commerce Mobile Application"
-            className={`w-full px-4 py-2.5 bg-background border rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default ${
-              errors.projectName ? 'border-error' : 'border-input'
-            }`}
+            className={errors.projectName ? 'border-error' : ''}
           />
           {errors.projectName && (
             <p className="text-sm text-error mt-1 flex items-center">
@@ -84,7 +84,7 @@ const ProjectBasicInfoForm = ({ data, onUpdate }: ProjectBasicInfoFormProps) => 
           <label htmlFor="description" className="block text-sm font-medium text-foreground mb-2">
             Project Description <span className="text-error">*</span>
           </label>
-          <textarea
+          <Textarea
             id="description"
             value={formData.description}
             onChange={(e) => handleChange('description', e.target.value)}
@@ -92,9 +92,7 @@ const ProjectBasicInfoForm = ({ data, onUpdate }: ProjectBasicInfoFormProps) => 
             placeholder="Describe the project's goals, target audience, and key features..."
             rows={4}
             maxLength={500}
-            className={`w-full px-4 py-2.5 bg-background border rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default resize-none ${
-              errors.description ? 'border-error' : 'border-input'
-            }`}
+            className={`resize-none ${errors.description ? 'border-error' : ''}`}
           />
           {errors.description && (
             <p className="text-sm text-error mt-1 flex items-center">
@@ -116,15 +114,13 @@ const ProjectBasicInfoForm = ({ data, onUpdate }: ProjectBasicInfoFormProps) => 
           <label htmlFor="startDate" className="block text-sm font-medium text-foreground mb-2">
             Start Date <span className="text-error">*</span>
           </label>
-          <input
+          <Input
             type="date"
             id="startDate"
             value={formData.startDate}
             onChange={(e) => handleChange('startDate', e.target.value)}
             onBlur={() => validateField('startDate')}
-            className={`w-full px-4 py-2.5 bg-background border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default ${
-              errors.startDate ? 'border-error' : 'border-input'
-            }`}
+            className={errors.startDate ? 'border-error' : ''}
           />
           {errors.startDate && (
             <p className="text-sm text-error mt-1 flex items-center">
@@ -138,15 +134,13 @@ const ProjectBasicInfoForm = ({ data, onUpdate }: ProjectBasicInfoFormProps) => 
           <label htmlFor="estimatedEndDate" className="block text-sm font-medium text-foreground mb-2">
             Estimated End Date <span className="text-error">*</span>
           </label>
-          <input
+          <Input
             type="date"
             id="estimatedEndDate"
             value={formData.estimatedEndDate}
             onChange={(e) => handleChange('estimatedEndDate', e.target.value)}
             onBlur={() => validateField('estimatedEndDate')}
-            className={`w-full px-4 py-2.5 bg-background border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default ${
-              errors.estimatedEndDate ? 'border-error' : 'border-input'
-            }`}
+            className={errors.estimatedEndDate ? 'border-error' : ''}
           />
           {errors.estimatedEndDate && (
             <p className="text-sm text-error mt-1 flex items-center">
@@ -162,13 +156,13 @@ const ProjectBasicInfoForm = ({ data, onUpdate }: ProjectBasicInfoFormProps) => 
           </label>
           <div className="relative">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-            <input
+            <Input
               type="text"
               id="budget"
               value={formData.budget}
               onChange={(e) => handleChange('budget', e.target.value)}
               placeholder="10,000"
-              className="w-full pl-8 pr-4 py-2.5 bg-background border border-input rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default"
+              className="pl-8"
             />
           </div>
           <p className="text-xs text-muted-foreground mt-1">Optional: Estimated project budget</p>

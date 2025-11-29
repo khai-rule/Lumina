@@ -1,6 +1,8 @@
 'use client';
 
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Requirement {
   id: string;
@@ -59,16 +61,18 @@ const RequirementDetailsModal = ({
         onClick={onClose}
       ></div>
       <div className="fixed inset-0 z-modal flex items-center justify-center p-4">
-        <div className="bg-card border border-border rounded-lg shadow-active w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
+        <Card className="w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col shadow-active">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-border">
             <h2 className="text-xl font-semibold text-foreground">Requirement Details</h2>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={onClose}
-              className="p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring"
+              className="text-muted-foreground hover:text-foreground"
             >
               <Icon name="XMarkIcon" size={24} />
-            </button>
+            </Button>
           </div>
 
           {/* Content */}
@@ -154,23 +158,22 @@ const RequirementDetailsModal = ({
 
           {/* Footer */}
           <div className="flex items-center justify-end space-x-3 p-6 border-t border-border">
-            <button
+            <Button
+              variant="outline"
               onClick={onClose}
-              className="px-6 py-2.5 border border-input rounded-md text-foreground hover:bg-muted transition-default focus-ring"
             >
               Close
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => {
                 onEdit(requirement);
                 onClose();
               }}
-              className="px-6 py-2.5 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default focus-ring"
             >
               Edit Requirement
-            </button>
+            </Button>
           </div>
-        </div>
+        </Card>
       </div>
     </>
   );

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
 
 interface Task {
   id: string;
@@ -114,19 +115,25 @@ const TaskChecklist = ({ tasks, onTaskToggle, onAddNote }: TaskChecklistProps) =
             {expandedTask === task.id && (
               <div className="mt-4 pt-4 border-t border-border">
                 <p className="text-sm text-muted-foreground mb-3">{task.description}</p>
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => onAddNote(task.id)}
-                    className="flex items-center space-x-2 px-3 py-1.5 border border-border rounded-md text-sm text-foreground hover:bg-muted transition-default focus-ring"
-                  >
-                    <Icon name="PencilIcon" size={14} />
-                    <span>Add Note</span>
-                  </button>
-                  <button className="flex items-center space-x-2 px-3 py-1.5 border border-border rounded-md text-sm text-foreground hover:bg-muted transition-default focus-ring">
-                    <Icon name="PaperClipIcon" size={14} />
-                    <span>Attach File</span>
-                  </button>
-                </div>
+                  <div className="flex space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => onAddNote(task.id)}
+                      className="flex items-center space-x-2"
+                    >
+                      <Icon name="PencilIcon" size={14} />
+                      <span>Add Note</span>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center space-x-2"
+                    >
+                      <Icon name="PaperClipIcon" size={14} />
+                      <span>Attach File</span>
+                    </Button>
+                  </div>
               </div>
             )}
           </div>

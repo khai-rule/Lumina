@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface DiagramCanvasProps {
   selectedTool: string;
@@ -182,24 +184,28 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
   };
 
   return (
-    <div className="relative w-full h-full bg-background border border-border rounded-lg overflow-hidden">
+    <Card className="relative w-full h-full overflow-hidden p-0">
       <div className="absolute top-4 right-4 flex space-x-2 z-10">
-        <button
+        <Button
+          variant="secondary"
+          size="icon"
           onClick={undoLastAction}
           disabled={elements.length === 0}
-          className="p-2 bg-card border border-border rounded-md hover:bg-muted transition-default disabled:opacity-50 disabled:cursor-not-allowed"
+          className="h-9 w-9 bg-card border border-border hover:bg-muted"
           title="Undo"
         >
           <Icon name="ArrowUturnLeftIcon" size={16} />
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="secondary"
+          size="icon"
           onClick={clearCanvas}
           disabled={elements.length === 0}
-          className="p-2 bg-card border border-border rounded-md hover:bg-muted transition-default disabled:opacity-50 disabled:cursor-not-allowed"
+          className="h-9 w-9 bg-card border border-border hover:bg-muted"
           title="Clear Canvas"
         >
           <Icon name="TrashIcon" size={16} />
-        </button>
+        </Button>
       </div>
 
       <canvas
@@ -222,7 +228,7 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
           </div>
         </div>
       )}
-    </div>
+    </Card>
   );
 };
 

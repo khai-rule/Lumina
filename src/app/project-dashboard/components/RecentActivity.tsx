@@ -1,4 +1,6 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Activity {
   id: string;
@@ -50,12 +52,12 @@ const RecentActivity = ({ activities }: RecentActivityProps) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg p-6 shadow-subtle">
+    <Card className="p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-foreground">Recent Activity</h3>
-        <button className="text-sm text-primary hover:underline focus-ring">
+        <Button variant="link" className="text-sm p-0 h-auto">
           View All
-        </button>
+        </Button>
       </div>
 
       <div className="space-y-4">
@@ -101,7 +103,7 @@ const RecentActivity = ({ activities }: RecentActivityProps) => {
           ))
         )}
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -1,6 +1,8 @@
 'use client';
 
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Template {
   id: string;
@@ -21,7 +23,7 @@ const RequirementTemplates = ({
   onSelectTemplate,
 }: RequirementTemplatesProps) => {
   return (
-    <div className="bg-card border border-border rounded-lg p-6">
+    <Card className="p-6">
       <div className="flex items-center space-x-3 mb-6">
         <div className="w-10 h-10 bg-accent/10 rounded-md flex items-center justify-center">
           <Icon name="DocumentDuplicateIcon" size={20} className="text-accent" />
@@ -34,18 +36,19 @@ const RequirementTemplates = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {templates.map((template) => (
-          <button
+          <Button
             key={template.id}
+            variant="outline"
             onClick={() => onSelectTemplate(template.id)}
-            className="text-left p-4 border border-border rounded-lg hover:border-primary hover:bg-primary/5 transition-default focus-ring"
+            className="h-auto flex-col items-start p-4 hover:border-primary hover:bg-primary/5 space-y-0"
           >
-            <div className="flex items-start space-x-3">
+            <div className="flex items-start space-x-3 w-full">
               <div className="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center flex-shrink-0">
                 <Icon name={template.icon as any} size={20} className="text-primary" />
               </div>
-              <div className="flex-1 min-w-0">
+              <div className="flex-1 min-w-0 text-left">
                 <h4 className="font-medium text-foreground mb-1">{template.name}</h4>
-                <p className="text-sm text-muted-foreground mb-2">{template.description}</p>
+                <p className="text-sm text-muted-foreground mb-2 whitespace-normal">{template.description}</p>
                 <div className="flex flex-wrap gap-1">
                   {template.fields.slice(0, 3).map((field, index) => (
                     <span
@@ -63,10 +66,10 @@ const RequirementTemplates = ({
                 </div>
               </div>
             </div>
-          </button>
+          </Button>
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 

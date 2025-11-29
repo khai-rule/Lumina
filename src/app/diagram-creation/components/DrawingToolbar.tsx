@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Tool {
   id: string;
@@ -39,14 +41,16 @@ const DrawingToolbar = ({ selectedTool, onToolSelect }: DrawingToolbarProps) => 
   };
 
   return (
-    <div className="w-full lg:w-16 bg-card border border-border rounded-lg overflow-hidden">
+    <Card className="w-full lg:w-16 overflow-hidden flex flex-col p-0">
       {/* Category Tabs */}
       <div className="flex lg:flex-col border-b lg:border-b-0 lg:border-r border-border">
         {toolCategories.map((category) => (
-          <button
+          <Button
             key={category.id}
+            variant={activeCategory === category.id ? 'default' : 'ghost'}
+            size="icon"
             onClick={() => setActiveCategory(category.id)}
-            className={`flex items-center justify-center p-3 transition-default ${
+            className={`w-auto lg:w-full h-auto p-3 rounded-none ${
               activeCategory === category.id
                 ? 'bg-primary text-primary-foreground'
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground'
@@ -55,7 +59,7 @@ const DrawingToolbar = ({ selectedTool, onToolSelect }: DrawingToolbarProps) => 
           >
             <Icon name={category.icon as any} size={20} />
             <span className="ml-2 lg:hidden text-sm">{category.name}</span>
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -63,10 +67,12 @@ const DrawingToolbar = ({ selectedTool, onToolSelect }: DrawingToolbarProps) => 
       <div className="p-2">
         <div className="grid grid-cols-4 lg:grid-cols-1 gap-1">
           {getToolsByCategory(activeCategory).map((tool) => (
-            <button
+            <Button
               key={tool.id}
+              variant={selectedTool === tool.id ? 'default' : 'ghost'}
+              size="icon"
               onClick={() => onToolSelect(tool.id)}
-              className={`flex items-center justify-center p-3 rounded-md transition-default ${
+              className={`w-full h-10 ${
                 selectedTool === tool.id
                   ? 'bg-primary text-primary-foreground shadow-subtle'
                   : 'text-muted-foreground hover:bg-muted hover:text-foreground'
@@ -74,13 +80,13 @@ const DrawingToolbar = ({ selectedTool, onToolSelect }: DrawingToolbarProps) => 
               title={tool.name}
             >
               <Icon name={tool.icon as any} size={18} />
-            </button>
+            </Button>
           ))}
         </div>
       </div>
 
       {/* Tool Properties */}
-      <div className="p-3 border-t border-border">
+      <div className="p-3 border-t border-border mt-auto">
         <div className="space-y-2">
           <label className="block text-xs font-medium text-muted-foreground">
             Stroke Width
@@ -94,7 +100,7 @@ const DrawingToolbar = ({ selectedTool, onToolSelect }: DrawingToolbarProps) => 
           />
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

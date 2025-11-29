@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
 
 interface ExportReportModalProps {
   isOpen: boolean;
@@ -47,13 +48,15 @@ const ExportReportModal = ({ isOpen, onClose, onExport }: ExportReportModalProps
         <div className="bg-background rounded-lg shadow-active max-w-2xl w-full max-h-[90vh] overflow-y-auto">
           <div className="flex items-center justify-between p-6 border-b border-border">
             <h2 className="text-xl font-semibold text-foreground">Export Analytics Report</h2>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={onClose}
-              className="p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring"
+              className="rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
               aria-label="Close modal"
             >
               <Icon name="XMarkIcon" size={20} />
-            </button>
+            </Button>
           </div>
 
           <div className="p-6 space-y-6">
@@ -62,18 +65,20 @@ const ExportReportModal = ({ isOpen, onClose, onExport }: ExportReportModalProps
               <h3 className="font-medium text-foreground mb-3">Select Export Format</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {formats.map((format) => (
-                  <button
+                  <Button
                     key={format.id}
+                    variant={selectedFormat === format.id ? 'default' : 'outline'}
                     onClick={() => setSelectedFormat(format.id)}
-                    className={`p-4 border-2 rounded-lg text-left transition-default focus-ring ${
+                    className={`h-auto p-4 flex flex-col items-start justify-start text-left ${
                       selectedFormat === format.id
-                        ? 'border-primary bg-primary/5' :'border-border hover:border-primary/50'
+                        ? 'bg-primary/5 border-primary'
+                        : 'border-border hover:border-primary/50'
                     }`}
                   >
                     <Icon name={format.icon as any} size={24} className="text-primary mb-2" />
                     <p className="font-medium text-foreground text-sm mb-1">{format.label}</p>
-                    <p className="text-xs text-muted-foreground">{format.description}</p>
-                  </button>
+                    <p className="text-xs text-muted-foreground font-normal">{format.description}</p>
+                  </Button>
                 ))}
               </div>
             </div>
@@ -139,19 +144,19 @@ const ExportReportModal = ({ isOpen, onClose, onExport }: ExportReportModalProps
           </div>
 
           <div className="flex items-center justify-end space-x-3 p-6 border-t border-border">
-            <button
+            <Button
+              variant="outline"
               onClick={onClose}
-              className="px-4 py-2.5 border border-border rounded-md text-foreground hover:bg-muted transition-default focus-ring"
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={handleExport}
-              className="px-4 py-2.5 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-default focus-ring flex items-center space-x-2"
+              className="flex items-center space-x-2"
             >
-              <Icon name="ArrowDownTrayIcon" size={18} />
+              <Icon name="ArrowDownTrayIcon" size={18} className="mr-2" />
               <span>Export Report</span>
-            </button>
+            </Button>
           </div>
         </div>
       </div>

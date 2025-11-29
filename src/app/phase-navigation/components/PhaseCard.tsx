@@ -1,4 +1,6 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface PhaseCardProps {
   phase: {
@@ -59,7 +61,7 @@ const PhaseCard = ({ phase, isExpanded, onToggle }: PhaseCardProps) => {
   };
 
   return (
-    <div className={`border rounded-lg transition-default ${getStatusStyles()}`}>
+    <Card className={`transition-default ${getStatusStyles()}`}>
       <button
         onClick={onToggle}
         disabled={phase.status === 'locked'}
@@ -161,18 +163,18 @@ const PhaseCard = ({ phase, isExpanded, onToggle }: PhaseCardProps) => {
             
             {phase.status === 'active' && (
               <div className="flex space-x-3 pt-2">
-                <button className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-default focus-ring">
+                <Button className="flex-1">
                   Continue Working
-                </button>
-                <button className="px-4 py-2 border border-border text-foreground rounded-md text-sm font-medium hover:bg-muted transition-default focus-ring">
+                </Button>
+                <Button variant="outline">
                   View Details
-                </button>
+                </Button>
               </div>
             )}
           </div>
         </div>
       )}
-    </div>
+    </Card>
   );
 };
 

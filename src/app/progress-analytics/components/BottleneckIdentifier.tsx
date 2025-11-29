@@ -1,4 +1,6 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Bottleneck {
   id: string;
@@ -38,7 +40,7 @@ const BottleneckIdentifier = ({ bottlenecks, onResolveClick }: BottleneckIdentif
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg p-6 shadow-subtle">
+    <Card className="p-6 shadow-subtle">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="text-lg font-semibold text-foreground mb-1">Bottleneck Identification</h3>
@@ -87,17 +89,18 @@ const BottleneckIdentifier = ({ bottlenecks, onResolveClick }: BottleneckIdentif
                 <p className="text-sm">{bottleneck.suggestedAction}</p>
               </div>
 
-              <button
+              <Button
+                variant="secondary"
                 onClick={() => onResolveClick(bottleneck.id)}
-                className="w-full px-4 py-2 bg-background hover:bg-background/80 rounded-md text-sm font-medium transition-default focus-ring"
+                className="w-full bg-background hover:bg-background/80"
               >
                 Mark as Resolved
-              </button>
+              </Button>
             </div>
           ))
         )}
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -2,6 +2,8 @@
 
 
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Category {
   id: string;
@@ -23,7 +25,7 @@ const RequirementCategoryPanel = ({
   onCategoryChange,
 }: RequirementCategoryPanelProps) => {
   return (
-    <div className="bg-card border-r border-border h-full overflow-y-auto">
+    <Card className="h-full overflow-y-auto border-r border-border rounded-none border-t-0 border-b-0 border-l-0">
       <div className="p-4 border-b border-border">
         <h2 className="text-lg font-semibold text-foreground">Requirement Categories</h2>
         <p className="text-sm text-muted-foreground mt-1">Select a category to manage requirements</p>
@@ -33,11 +35,12 @@ const RequirementCategoryPanel = ({
         <ul className="space-y-1">
           {categories.map((category) => (
             <li key={category.id}>
-              <button
+              <Button
+                variant={activeCategory === category.id ? 'default' : 'ghost'}
                 onClick={() => onCategoryChange(category.id)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-md transition-default focus-ring ${
+                className={`w-full justify-between h-auto py-3 px-4 ${
                   activeCategory === category.id
-                    ? 'bg-primary text-primary-foreground shadow-subtle'
+                    ? 'shadow-subtle'
                     : 'text-foreground hover:bg-muted'
                 }`}
               >
@@ -54,19 +57,22 @@ const RequirementCategoryPanel = ({
                 }`}>
                   {category.count}
                 </span>
-              </button>
+              </Button>
             </li>
           ))}
         </ul>
       </nav>
       
       <div className="p-4 border-t border-border mt-4">
-        <button className="w-full flex items-center justify-center space-x-2 px-4 py-2.5 bg-accent text-accent-foreground rounded-md font-medium text-sm hover:bg-accent/90 transition-default focus-ring">
+        <Button
+          variant="secondary"
+          className="w-full flex items-center justify-center space-x-2"
+        >
           <Icon name="DocumentPlusIcon" size={18} />
           <span>Import Requirements</span>
-        </button>
+        </Button>
       </div>
-    </div>
+    </Card>
   );
 };
 

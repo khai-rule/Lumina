@@ -1,4 +1,5 @@
 import ProjectCard from './ProjectCard';
+import { Button } from '@/components/ui/Button';
 
 interface Project {
   id: string;
@@ -55,9 +56,9 @@ const ProjectGrid = ({ projects, isLoading = false }: ProjectGridProps) => {
         </div>
         <h3 className="text-lg font-semibold text-foreground mb-2">No projects found</h3>
         <p className="text-muted-foreground mb-6">Get started by creating your first SDLC project</p>
-        <button className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-default focus-ring">
+        <Button className="px-6 py-3 font-medium">
           Start New Project
-        </button>
+        </Button>
       </div>
     );
   }

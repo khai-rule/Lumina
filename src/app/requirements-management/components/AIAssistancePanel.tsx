@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface AISuggestion {
   id: string;
@@ -63,10 +65,11 @@ const AIAssistancePanel = ({
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg overflow-hidden">
-      <button
+    <Card className="overflow-hidden">
+      <Button
+        variant="ghost"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-4 hover:bg-muted transition-default focus-ring"
+        className="w-full flex items-center justify-between p-4 hover:bg-muted h-auto rounded-none"
       >
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center">
@@ -74,7 +77,7 @@ const AIAssistancePanel = ({
           </div>
           <div className="text-left">
             <h3 className="font-semibold text-foreground">AI Assistance</h3>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground font-normal">
               {suggestions.length} suggestion{suggestions.length !== 1 ? 's' : ''} available
             </p>
           </div>
@@ -84,7 +87,7 @@ const AIAssistancePanel = ({
           size={20}
           className="text-muted-foreground"
         />
-      </button>
+      </Button>
 
       {isExpanded && (
         <div className="border-t border-border">
@@ -115,20 +118,23 @@ const AIAssistancePanel = ({
                       </div>
                       <p className="text-sm text-muted-foreground mb-3">{suggestion.description}</p>
                       <div className="flex items-center space-x-2">
-                        <button
+                        <Button
+                          size="sm"
                           onClick={() => onApplySuggestion(suggestion.id)}
-                          className="flex items-center space-x-1 px-3 py-1.5 bg-primary text-primary-foreground rounded-md text-xs font-medium hover:bg-primary/90 transition-default focus-ring"
+                          className="h-8 text-xs"
                         >
-                          <Icon name="CheckIcon" size={14} />
+                          <Icon name="CheckIcon" size={14} className="mr-1" />
                           <span>Apply</span>
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
                           onClick={() => onDismissSuggestion(suggestion.id)}
-                          className="flex items-center space-x-1 px-3 py-1.5 border border-input text-foreground rounded-md text-xs font-medium hover:bg-muted transition-default focus-ring"
+                          className="h-8 text-xs"
                         >
-                          <Icon name="XMarkIcon" size={14} />
+                          <Icon name="XMarkIcon" size={14} className="mr-1" />
                           <span>Dismiss</span>
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -138,7 +144,7 @@ const AIAssistancePanel = ({
           )}
         </div>
       )}
-    </div>
+    </Card>
   );
 };
 

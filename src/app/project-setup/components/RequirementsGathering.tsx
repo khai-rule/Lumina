@@ -2,6 +2,10 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/Textarea';
+import { Card, CardContent } from '@/components/ui/Card';
 
 interface Requirement {
   id: string;
@@ -137,83 +141,83 @@ const RequirementsGathering = ({ requirements, onUpdate }: RequirementsGathering
       )}
 
       {!showAddForm ? (
-        <button
+        <Button
           onClick={() => setShowAddForm(true)}
-          className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-muted border-2 border-dashed border-border rounded-lg text-muted-foreground hover:bg-muted/50 hover:border-primary hover:text-primary transition-default"
+          variant="outline"
+          className="w-full h-auto py-8 border-2 border-dashed border-border hover:border-primary hover:bg-muted/50 flex-col gap-2"
         >
-          <Icon name="PlusCircleIcon" size={20} />
-          <span className="font-medium">Add {tabs.find(t => t.id === activeTab)?.label} Requirement</span>
-        </button>
+          <Icon name="PlusCircleIcon" size={24} />
+          <span className="font-medium text-base">Add {tabs.find(t => t.id === activeTab)?.label} Requirement</span>
+        </Button>
       ) : (
-        <div className="bg-card border border-border rounded-lg p-6 space-y-4">
-          <h4 className="font-medium text-foreground">Add New Requirement</h4>
+        <Card>
+          <CardContent className="p-6 space-y-4">
+            <h4 className="font-medium text-foreground">Add New Requirement</h4>
 
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Title <span className="text-error">*</span>
-              </label>
-              <input
-                type="text"
-                value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="e.g., User Authentication System"
-                className="w-full px-4 py-2.5 bg-background border border-input rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default"
-              />
-            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Title <span className="text-error">*</span>
+                </label>
+                <Input
+                  type="text"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  placeholder="e.g., User Authentication System"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Description <span className="text-error">*</span>
-              </label>
-              <textarea
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Describe the requirement in detail..."
-                rows={3}
-                className="w-full px-4 py-2.5 bg-background border border-input rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-default resize-none"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Description <span className="text-error">*</span>
+                </label>
+                <Textarea
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="Describe the requirement in detail..."
+                  rows={3}
+                  className="resize-none"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">Priority</label>
-              <div className="flex space-x-3">
-                {(['must-have', 'should-have', 'nice-to-have'] as const).map((priority) => (
-                  <button
-                    key={priority}
-                    onClick={() => setFormData({ ...formData, priority })}
-                    className={`flex-1 px-4 py-2.5 rounded-md font-medium text-sm transition-default ${
-                      formData.priority === priority
-                        ? priority === 'must-have' ?'bg-error text-error-foreground'
-                          : priority === 'should-have' ?'bg-warning text-warning-foreground' :'bg-primary text-primary-foreground' :'bg-muted text-muted-foreground hover:bg-muted/50'
-                    }`}
-                  >
-                    {priority.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                  </button>
-                ))}
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">Priority</label>
+                <div className="flex space-x-3">
+                  {(['must-have', 'should-have', 'nice-to-have'] as const).map((priority) => (
+                    <Button
+                      key={priority}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, priority })}
+                      variant={formData.priority === priority ? (priority === 'must-have' ? 'destructive' : priority === 'should-have' ? 'secondary' : 'default') : 'outline'}
+                      className={`flex-1 ${formData.priority === priority && priority === 'should-have' ? 'bg-warning text-warning-foreground hover:bg-warning/90' : ''}`}
+                    >
+                      {priority.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="flex items-center space-x-3 pt-2">
-            <button
-              onClick={handleAdd}
-              disabled={!formData.title || !formData.description}
-              className="flex-1 px-4 py-2.5 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Add Requirement
-            </button>
-            <button
-              onClick={() => {
-                setShowAddForm(false);
-                setFormData({ type: activeTab, title: '', description: '', priority: 'must-have' });
-              }}
-              className="px-4 py-2.5 bg-muted text-foreground rounded-md font-medium hover:bg-muted/50 transition-default"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
+            <div className="flex items-center space-x-3 pt-2">
+              <Button
+                onClick={handleAdd}
+                disabled={!formData.title || !formData.description}
+                className="flex-1"
+              >
+                Add Requirement
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowAddForm(false);
+                  setFormData({ type: activeTab, title: '', description: '', priority: 'must-have' });
+                }}
+                variant="secondary"
+              >
+                Cancel
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

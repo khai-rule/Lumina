@@ -10,6 +10,8 @@ import DrawingToolbar from './DrawingToolbar';
 import DiagramTemplates from './DiagramTemplates';
 import AIAnalysisPanel from './AIAnalysisPanel';
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 const DiagramCreationInteractive = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -81,38 +83,35 @@ const DiagramCreationInteractive = () => {
             {/* View Toggle */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-1 bg-muted rounded-lg p-1">
-                <button
+                <Button
+                  variant={activeView === 'canvas' ? 'default' : 'ghost'}
+                  size="sm"
                   onClick={() => setActiveView('canvas')}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-default ${
-                    activeView === 'canvas' ?'bg-background text-foreground shadow-subtle' :'text-muted-foreground hover:text-foreground'
-                  }`}
+                  className={activeView === 'canvas' ? 'bg-background text-foreground shadow-subtle hover:bg-background' : 'text-muted-foreground hover:text-foreground'}
                 >
-                  <Icon name="PencilIcon" size={16} />
+                  <Icon name="PencilIcon" size={16} className="mr-2" />
                   <span>Canvas</span>
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant={activeView === 'templates' ? 'default' : 'ghost'}
+                  size="sm"
                   onClick={() => setActiveView('templates')}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-default ${
-                    activeView === 'templates' ?'bg-background text-foreground shadow-subtle' :'text-muted-foreground hover:text-foreground'
-                  }`}
+                  className={activeView === 'templates' ? 'bg-background text-foreground shadow-subtle hover:bg-background' : 'text-muted-foreground hover:text-foreground'}
                 >
-                  <Icon name="Square3Stack3DIcon" size={16} />
+                  <Icon name="Square3Stack3DIcon" size={16} className="mr-2" />
                   <span>Templates</span>
-                </button>
+                </Button>
               </div>
 
               <div className="flex items-center space-x-2">
-                <button
+                <Button
+                  variant={showAIPanel ? 'default' : 'secondary'}
+                  size="sm"
                   onClick={() => setShowAIPanel(!showAIPanel)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-default ${
-                    showAIPanel
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted text-muted-foreground hover:text-foreground'
-                  }`}
                 >
-                  <Icon name="SparklesIcon" size={16} />
+                  <Icon name="SparklesIcon" size={16} className="mr-2" />
                   <span>AI Analysis</span>
-                </button>
+                </Button>
               </div>
             </div>
 
@@ -154,7 +153,7 @@ const DiagramCreationInteractive = () => {
             </div>
 
             {/* Status Bar */}
-            <div className="mt-6 flex items-center justify-between p-4 bg-card border border-border rounded-lg">
+            <Card className="mt-6 flex items-center justify-between p-4">
               <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                 <span>Tool: {selectedTool}</span>
                 <span>•</span>
@@ -171,7 +170,7 @@ const DiagramCreationInteractive = () => {
                 <Icon name="InformationCircleIcon" size={16} />
                 <span>Use Ctrl+Z to undo, Ctrl+S to save</span>
               </div>
-            </div>
+            </Card>
           </div>
         </main>
       </div>

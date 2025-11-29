@@ -10,6 +10,7 @@ import ProjectFilters from './ProjectFilters';
 import ProjectGrid from './ProjectGrid';
 import RecentActivity from './RecentActivity';
 import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
 
 interface FilterOptions {
   phase: string;
@@ -337,13 +338,15 @@ const DashboardInteractive = ({ initialProjects = [] }: DashboardInteractiveProp
                 Manage and track your SDLC projects from a centralized hub
               </p>
             </div>
-            <Link
-              href="/project-setup"
-              className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-default focus-ring flex items-center space-x-2">
-
-              <Icon name="PlusIcon" size={20} />
-              <span>Start New Project</span>
-            </Link>
+            <Button
+              asChild
+              className="px-6 py-3 font-medium flex items-center space-x-2"
+            >
+              <Link href="/project-setup">
+                <Icon name="PlusIcon" size={20} className="mr-2" />
+                <span>Start New Project</span>
+              </Link>
+            </Button>
           </div>
 
           {/* Dashboard Metrics */}

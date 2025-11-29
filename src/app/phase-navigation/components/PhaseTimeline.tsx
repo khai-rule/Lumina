@@ -1,4 +1,5 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
 
 interface Phase {
   id: string;
@@ -33,7 +34,7 @@ const PhaseTimeline = ({ phases, onPhaseClick }: PhaseTimelineProps) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg p-6">
+    <Card className="p-6">
       <h3 className="font-semibold text-foreground mb-6">SDLC Phase Timeline</h3>
       
       {/* Desktop Timeline */}
@@ -121,7 +122,7 @@ const PhaseTimeline = ({ phases, onPhaseClick }: PhaseTimelineProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 

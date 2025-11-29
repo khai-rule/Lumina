@@ -1,4 +1,5 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
 
 interface VelocityData {
   period: string;
@@ -26,7 +27,7 @@ const VelocityTracker = ({ data, averageVelocity }: VelocityTrackerProps) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg p-6 shadow-subtle">
+    <Card className="p-6 shadow-subtle">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="text-lg font-semibold text-foreground mb-1">Velocity Tracking</h3>
@@ -63,7 +64,7 @@ const VelocityTracker = ({ data, averageVelocity }: VelocityTrackerProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 

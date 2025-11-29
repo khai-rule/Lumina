@@ -1,4 +1,5 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
 
 interface MetricsCardProps {
   title: string;
@@ -23,7 +24,7 @@ const MetricsCard = ({ title, value, change, changeLabel, icon, trend }: Metrics
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg p-6 shadow-subtle hover:shadow-hover transition-default">
+    <Card className="p-6 shadow-subtle hover:shadow-hover transition-default">
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
           <p className="text-sm text-muted-foreground mb-1">{title}</p>
@@ -40,7 +41,7 @@ const MetricsCard = ({ title, value, change, changeLabel, icon, trend }: Metrics
         </span>
         <span className="text-sm text-muted-foreground">{changeLabel}</span>
       </div>
-    </div>
+    </Card>
   );
 };
 

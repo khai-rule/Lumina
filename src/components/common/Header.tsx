@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
 
 interface HeaderProps {
   sidebarCollapsed?: boolean;
@@ -89,25 +90,24 @@ const Header = ({ sidebarCollapsed = false }: HeaderProps) => {
         {/* Primary Navigation */}
         <nav className="hidden lg:flex items-center space-x-1">
           {primaryNavItems.map((item) => (
-            <Link
+            <Button
               key={item.path}
-              href={item.path}
-              className={`px-4 py-2 rounded-md text-nav transition-default focus-ring ${
-                isActive(item.path)
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-              }`}
+              asChild
+              variant={isActive(item.path) ? 'default' : 'ghost'}
+              className="px-4"
             >
-              {item.label}
-            </Link>
+              <Link href={item.path}>
+                {item.label}
+              </Link>
+            </Button>
           ))}
 
           {/* More Dropdown */}
           <div className="relative group">
-            <button className="px-4 py-2 rounded-md text-nav text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring flex items-center">
+            <Button variant="ghost" className="px-4 flex items-center">
               More
               <Icon name="ChevronDownIcon" size={16} className="ml-1" />
-            </button>
+            </Button>
             <div className="absolute top-full left-0 mt-1 w-48 bg-popover border border-border rounded-md shadow-hover opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-default">
               {secondaryNavItems.map((item) => (
                 <Link
@@ -127,28 +127,32 @@ const Header = ({ sidebarCollapsed = false }: HeaderProps) => {
         </nav>
 
         {/* Mobile Menu Button */}
-        <button
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring"
+          className="lg:hidden"
           aria-label="Toggle mobile menu"
         >
           <Icon name={mobileMenuOpen ? 'XMarkIcon' : 'Bars3Icon'} size={24} />
-        </button>
+        </Button>
 
         {/* Right Section */}
         <div className="flex items-center space-x-2">
           {/* Notification Center */}
           <div className="relative">
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setNotificationsOpen(!notificationsOpen)}
-              className="relative p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring"
+              className="relative"
               aria-label="Notifications"
             >
               <Icon name="BellIcon" size={20} />
               {notifications.length > 0 && (
-                <span className="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+                <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
               )}
-            </button>
+            </Button>
 
             {notificationsOpen && (
               <>
@@ -188,9 +192,9 @@ const Header = ({ sidebarCollapsed = false }: HeaderProps) => {
                     ))}
                   </div>
                   <div className="p-3 border-t border-border">
-                    <button className="w-full text-center text-primary text-sm font-medium hover:underline">
+                    <Button variant="link" className="w-full text-sm">
                       View all notifications
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </>
@@ -198,11 +202,11 @@ const Header = ({ sidebarCollapsed = false }: HeaderProps) => {
           </div>
 
           {/* User Profile */}
-          <button className="flex items-center space-x-2 p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring">
+          <Button variant="ghost" className="flex items-center space-x-2 p-2">
             <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
               <span className="text-secondary-foreground text-sm font-medium">JD</span>
             </div>
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -216,18 +220,17 @@ const Header = ({ sidebarCollapsed = false }: HeaderProps) => {
           <div className="fixed top-16 left-0 right-0 bg-background border-b border-border shadow-active z-mobile-menu lg:hidden">
             <nav className="p-4 space-y-1">
               {[...primaryNavItems, ...secondaryNavItems].map((item) => (
-                <Link
+                <Button
                   key={item.path}
-                  href={item.path}
+                  asChild
+                  variant={isActive(item.path) ? 'default' : 'ghost'}
+                  className="w-full justify-start mb-1"
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`block px-4 py-2.5 rounded-md text-nav transition-default ${
-                    isActive(item.path)
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                  }`}
                 >
-                  {item.label}
-                </Link>
+                  <Link href={item.path}>
+                    {item.label}
+                  </Link>
+                </Button>
               ))}
             </nav>
           </div>

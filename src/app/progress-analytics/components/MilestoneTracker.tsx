@@ -1,4 +1,5 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
 
 interface Milestone {
   id: string;
@@ -54,7 +55,7 @@ const MilestoneTracker = ({ milestones }: MilestoneTrackerProps) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg p-6 shadow-subtle">
+    <Card className="p-6 shadow-subtle">
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-foreground mb-1">Milestone Achievement</h3>
         <p className="text-sm text-muted-foreground">Track progress towards key project milestones</p>
@@ -101,7 +102,7 @@ const MilestoneTracker = ({ milestones }: MilestoneTrackerProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 

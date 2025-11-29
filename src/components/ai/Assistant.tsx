@@ -25,7 +25,7 @@ const SendIconSvg = () => (
 );
 
 export default function Assistant() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat() as any;
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -54,7 +54,7 @@ export default function Assistant() {
                 How can I help you with your project today?
               </p>
             )}
-            {messages.map((m: Message) => (
+            {messages.map((m: any) => (
               <div
                 key={m.id}
                 className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Card, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Methodology {
   id: string;
@@ -101,16 +103,16 @@ const MethodologySelection = ({ selectedMethodology, onSelect }: MethodologySele
           const isExpanded = expandedId === methodology.id;
 
           return (
-            <div
+            <Card
               key={methodology.id}
-              className={`bg-card border-2 rounded-lg transition-default cursor-pointer ${
+              className={`cursor-pointer transition-all ${
                 isSelected
-                  ? 'border-primary shadow-hover'
-                  : 'border-border hover:border-primary/50 hover:shadow-subtle'
+                  ? 'border-primary shadow-md'
+                  : 'hover:border-primary/50 hover:shadow-sm'
               }`}
               onClick={() => onSelect(methodology.id)}
             >
-              <div className="p-6">
+              <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div
                     className={`w-12 h-12 rounded-lg flex items-center justify-center ${
@@ -129,19 +131,20 @@ const MethodologySelection = ({ selectedMethodology, onSelect }: MethodologySele
                 <h3 className="text-lg font-semibold text-foreground mb-2">{methodology.name}</h3>
                 <p className="text-sm text-muted-foreground mb-4">{methodology.description}</p>
 
-                <button
+                <Button
+                  variant="link"
                   onClick={(e) => {
                     e.stopPropagation();
                     setExpandedId(isExpanded ? null : methodology.id);
                   }}
-                  className="flex items-center space-x-1 text-sm text-primary hover:underline"
+                  className="p-0 h-auto font-normal text-primary hover:no-underline"
                 >
-                  <span>{isExpanded ? 'Show Less' : 'Learn More'}</span>
+                  <span className="mr-1">{isExpanded ? 'Show Less' : 'Learn More'}</span>
                   <Icon
                     name={isExpanded ? 'ChevronUpIcon' : 'ChevronDownIcon'}
                     size={16}
                   />
-                </button>
+                </Button>
 
                 {isExpanded && (
                   <div className="mt-4 pt-4 border-t border-border space-y-4">
@@ -184,8 +187,8 @@ const MethodologySelection = ({ selectedMethodology, onSelect }: MethodologySele
                     </div>
                   </div>
                 )}
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           );
         })}
       </div>

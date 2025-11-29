@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 
 interface UploadedFile {
   id: string;
@@ -109,26 +111,31 @@ const DocumentUpload = ({ files, onUpdate }: DocumentUploadProps) => {
         <p className="text-sm text-muted-foreground mb-4">
           Maximum file size: 10MB per file
         </p>
-        <label className="inline-flex items-center space-x-2 px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default cursor-pointer">
-          <Icon name="FolderOpenIcon" size={20} />
-          <span>Choose Files</span>
+        <div className="inline-block">
           <input
             type="file"
             multiple
             onChange={handleFileInput}
             className="hidden"
+            id="file-upload"
             accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
           />
-        </label>
+          <Button asChild>
+            <label htmlFor="file-upload" className="cursor-pointer">
+              <Icon name="FolderOpenIcon" size={20} className="mr-2" />
+              Choose Files
+            </label>
+          </Button>
+        </div>
       </div>
 
       {files.length > 0 && (
         <div className="space-y-3">
           <h4 className="font-medium text-foreground">Uploaded Files ({files.length})</h4>
           {files.map((file) => (
-            <div
+            <Card
               key={file.id}
-              className="bg-card border border-border rounded-lg p-4 flex items-center justify-between hover:shadow-subtle transition-default"
+              className="flex items-center justify-between p-4 hover:shadow-sm transition-all"
             >
               <div className="flex items-center space-x-4 flex-1 min-w-0">
                 <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -144,21 +151,24 @@ const DocumentUpload = ({ files, onUpdate }: DocumentUploadProps) => {
                 </div>
               </div>
               <div className="flex items-center space-x-2 ml-4">
-                <button
-                  className="p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default"
+                <Button
+                  variant="ghost"
+                  size="icon"
                   aria-label="Download file"
                 >
                   <Icon name="ArrowDownTrayIcon" size={18} />
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => handleDelete(file.id)}
-                  className="p-2 rounded-md text-muted-foreground hover:bg-error/10 hover:text-error transition-default"
+                  variant="ghost"
+                  size="icon"
+                  className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                   aria-label="Delete file"
                 >
                   <Icon name="TrashIcon" size={18} />
-                </button>
+                </Button>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       )}

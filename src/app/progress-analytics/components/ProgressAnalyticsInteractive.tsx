@@ -16,6 +16,7 @@ import VelocityTracker from './VelocityTracker';
 import BottleneckIdentifier from './BottleneckIdentifier';
 import MilestoneTracker from './MilestoneTracker';
 import ExportReportModal from './ExportReportModal';
+import { Card } from '@/components/ui/Card';
 
 interface MetricData {
   title: string;
@@ -293,14 +294,14 @@ const ProgressAnalyticsInteractive = () => {
         <div className="flex-1">
           <div className="h-16 bg-background border-b border-border"></div>
           <div className="p-6">
-            <div className="animate-pulse space-y-4">
+            <Card className="animate-pulse space-y-4 p-6">
               <div className="h-8 bg-muted rounded w-1/4"></div>
               <div className="grid grid-cols-4 gap-4">
                 {[1, 2, 3, 4].map((i) => (
                   <div key={i} className="h-32 bg-muted rounded"></div>
                 ))}
               </div>
-            </div>
+            </Card>
           </div>
         </div>
       </div>

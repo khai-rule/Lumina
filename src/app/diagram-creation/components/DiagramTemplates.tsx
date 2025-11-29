@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
 import AppImage from '@/components/ui/AppImage';
+import { Input } from '@/components/ui/Input';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface Template {
   id: string;
@@ -142,18 +145,18 @@ const DiagramTemplates = ({ onTemplateSelect }: DiagramTemplatesProps) => {
         </div>
         
         {/* Search */}
-        <div className="relative">
+        <div className="relative w-full lg:w-64">
           <Icon
             name="MagnifyingGlassIcon"
             size={20}
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground z-10" />
 
-          <input
+          <Input
             type="text"
             placeholder="Search templates..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-4 py-2 w-full lg:w-64 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
+            className="pl-10" />
 
         </div>
       </div>
@@ -161,28 +164,27 @@ const DiagramTemplates = ({ onTemplateSelect }: DiagramTemplatesProps) => {
       {/* Categories */}
       <div className="flex flex-wrap gap-2">
         {categories.map((category) =>
-        <button
+        <Button
           key={category.id}
+          variant={selectedCategory === category.id ? 'default' : 'secondary'}
+          size="sm"
           onClick={() => setSelectedCategory(category.id)}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-default ${
-          selectedCategory === category.id ?
-          'bg-primary text-primary-foreground' :
-          'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground'}`
-          }>
+          className={selectedCategory === category.id ? '' : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground'}
+          >
 
             {category.name}
             <span className="ml-2 text-xs opacity-75">({category.count})</span>
-          </button>
+          </Button>
         )}
       </div>
 
       {/* Templates Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredTemplates.map((template) =>
-        <div
+        <Card
           key={template.id}
           onClick={() => onTemplateSelect(template)}
-          className="group bg-card border border-border rounded-lg overflow-hidden hover:shadow-hover transition-default cursor-pointer">
+          className="group overflow-hidden hover:shadow-hover transition-default cursor-pointer p-0">
 
             <div className="aspect-video overflow-hidden">
               <AppImage
@@ -214,7 +216,7 @@ const DiagramTemplates = ({ onTemplateSelect }: DiagramTemplatesProps) => {
 
               </div>
             </div>
-          </div>
+          </Card>
         )}
       </div>
 

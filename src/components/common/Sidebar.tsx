@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
 
 interface SidebarProps {
   isCollapsed?: boolean;
@@ -100,31 +101,30 @@ const Sidebar = ({ isCollapsed = false, onToggleCollapse }: SidebarProps) => {
           <ul className="space-y-1">
             {navigationItems.map((item) => (
               <li key={item.path}>
-                <Link
-                  href={item.path}
+                <Button
+                  asChild
+                  variant={isActive(item.path) ? 'default' : 'ghost'}
+                  className={`w-full justify-start ${collapsed ? 'px-2' : 'px-3'} mb-1`}
                   title={collapsed ? item.tooltip : undefined}
-                  className={`flex items-center px-3 py-2.5 rounded-md text-nav transition-default focus-ring group ${
-                    isActive(item.path)
-                      ? 'bg-primary text-primary-foreground shadow-subtle'
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                  }`}
                 >
-                  <Icon
-                    name={item.icon as any}
-                    size={20}
-                    className={`flex-shrink-0 ${collapsed ? '' : 'mr-3'}`}
-                  />
-                  {!collapsed && (
-                    <>
-                      <span className="flex-1">{item.label}</span>
-                      {item.badge && (
-                        <span className="ml-auto bg-accent text-accent-foreground text-xs font-medium px-2 py-0.5 rounded-full">
-                          {item.badge}
-                        </span>
-                      )}
-                    </>
-                  )}
-                </Link>
+                  <Link href={item.path}>
+                    <Icon
+                      name={item.icon as any}
+                      size={20}
+                      className={`flex-shrink-0 ${collapsed ? '' : 'mr-3'}`}
+                    />
+                    {!collapsed && (
+                      <>
+                        <span className="flex-1 text-left truncate">{item.label}</span>
+                        {item.badge && (
+                          <span className="ml-auto bg-accent text-accent-foreground text-xs font-medium px-2 py-0.5 rounded-full">
+                            {item.badge}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </Link>
+                </Button>
               </li>
             ))}
           </ul>
@@ -132,17 +132,18 @@ const Sidebar = ({ isCollapsed = false, onToggleCollapse }: SidebarProps) => {
 
         {/* Collapse Toggle */}
         <div className="p-4 border-t border-border">
-          <button
+          <Button
+            variant="ghost"
             onClick={handleToggleCollapse}
-            className="w-full flex items-center justify-center px-3 py-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-default focus-ring"
+            className="w-full justify-center"
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             <Icon
               name={collapsed ? 'ChevronRightIcon' : 'ChevronLeftIcon'}
               size={20}
             />
-            {!collapsed && <span className="ml-3 text-nav">Collapse</span>}
-          </button>
+            {!collapsed && <span className="ml-3">Collapse</span>}
+          </Button>
         </div>
       </div>
     </aside>

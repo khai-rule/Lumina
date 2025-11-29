@@ -12,6 +12,8 @@ import MethodologySelection from './MethodologySelection';
 import RequirementsGathering from './RequirementsGathering';
 import DocumentUpload from './DocumentUpload';
 import Icon from '@/components/ui/AppIcon';
+import { Button } from '@/components/ui/Button';
+import { Card, CardContent } from '@/components/ui/Card';
 
 interface SetupStep {
   id: string;
@@ -268,73 +270,76 @@ const ProjectSetupInteractive = () => {
           <SetupWizardProgress currentStep={currentStep} steps={steps} />
 
           {/* Step Content */}
-          <div className="bg-card border border-border rounded-lg p-6 lg:p-8 mb-6">
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold text-foreground mb-2">
-                {steps[currentStep].label}
-              </h2>
-              <p className="text-muted-foreground">{steps[currentStep].description}</p>
-            </div>
+          <Card className="mb-6">
+            <CardContent className="p-6 lg:p-8">
+              <div className="mb-6">
+                <h2 className="text-xl font-semibold text-foreground mb-2">
+                  {steps[currentStep].label}
+                </h2>
+                <p className="text-muted-foreground">{steps[currentStep].description}</p>
+              </div>
 
-            {currentStep === 0 && (
-              <ProjectBasicInfoForm data={projectInfo} onUpdate={setProjectInfo} />
-            )}
-            {currentStep === 1 && (
-              <StakeholderForm stakeholders={stakeholders} onUpdate={setStakeholders} />
-            )}
-            {currentStep === 2 && (
-              <MethodologySelection
-                selectedMethodology={selectedMethodology}
-                onSelect={setSelectedMethodology}
-              />
-            )}
-            {currentStep === 3 && (
-              <RequirementsGathering requirements={requirements} onUpdate={setRequirements} />
-            )}
-            {currentStep === 4 && (
-              <DocumentUpload files={uploadedFiles} onUpdate={setUploadedFiles} />
-            )}
-          </div>
+              {currentStep === 0 && (
+                <ProjectBasicInfoForm data={projectInfo} onUpdate={setProjectInfo} />
+              )}
+              {currentStep === 1 && (
+                <StakeholderForm stakeholders={stakeholders} onUpdate={setStakeholders} />
+              )}
+              {currentStep === 2 && (
+                <MethodologySelection
+                  selectedMethodology={selectedMethodology}
+                  onSelect={setSelectedMethodology}
+                />
+              )}
+              {currentStep === 3 && (
+                <RequirementsGathering requirements={requirements} onUpdate={setRequirements} />
+              )}
+              {currentStep === 4 && (
+                <DocumentUpload files={uploadedFiles} onUpdate={setUploadedFiles} />
+              )}
+            </CardContent>
+          </Card>
 
           {/* Navigation Buttons */}
           <div className="flex items-center justify-between">
-            <button
+            <Button
               onClick={handlePrevious}
               disabled={currentStep === 0}
-              className="flex items-center space-x-2 px-6 py-3 bg-muted text-foreground rounded-md font-medium hover:bg-muted/50 transition-default disabled:opacity-50 disabled:cursor-not-allowed"
+              variant="secondary"
+              className="px-6 py-6 text-base"
             >
-              <Icon name="ChevronLeftIcon" size={20} />
-              <span>Previous</span>
-            </button>
+              <Icon name="ChevronLeftIcon" size={20} className="mr-2" />
+              Previous
+            </Button>
 
             <div className="flex items-center space-x-3">
               {currentStep === steps.length - 1 ? (
-                <button
+                <Button
                   onClick={handleComplete}
                   disabled={!canProceed() || isSaving}
-                  className="flex items-center space-x-2 px-6 py-3 bg-success text-success-foreground rounded-md font-medium hover:bg-success/90 transition-default disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-6 text-base bg-success hover:bg-success/90 text-success-foreground"
                 >
                   {isSaving ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-success-foreground border-t-transparent rounded-full animate-spin"></div>
-                      <span>Completing...</span>
+                      <div className="w-5 h-5 border-2 border-success-foreground border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Completing...
                     </>
                   ) : (
                     <>
-                      <Icon name="CheckCircleIcon" size={20} />
-                      <span>Complete Setup</span>
+                      <Icon name="CheckCircleIcon" size={20} className="mr-2" />
+                      Complete Setup
                     </>
                   )}
-                </button>
+                </Button>
               ) : (
-                <button
+                <Button
                   onClick={handleNext}
                   disabled={!canProceed()}
-                  className="flex items-center space-x-2 px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-6 text-base"
                 >
-                  <span>Next</span>
-                  <Icon name="ChevronRightIcon" size={20} />
-                </button>
+                  Next
+                  <Icon name="ChevronRightIcon" size={20} className="ml-2" />
+                </Button>
               )}
             </div>
           </div>

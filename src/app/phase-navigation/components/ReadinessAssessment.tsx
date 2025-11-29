@@ -1,4 +1,6 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface ReadinessAssessmentProps {
   assessment: {
@@ -51,7 +53,7 @@ const ReadinessAssessment = ({
 
   if (!assessment) {
     return (
-      <div className="bg-card border border-border rounded-lg p-8 text-center">
+      <Card className="p-8 text-center">
         <div className="max-w-md mx-auto">
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <Icon name="ClipboardDocumentCheckIcon" size={32} className="text-primary" />
@@ -62,10 +64,10 @@ const ReadinessAssessment = ({
           <p className="text-muted-foreground mb-6">
             Request an AI-powered evaluation to determine if you're ready to progress to the next phase. The assessment will analyze your completed tasks, deliverables, and overall progress.
           </p>
-          <button
+          <Button
             onClick={onRequestAssessment}
             disabled={isLoading}
-            className="px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default focus-ring disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 mx-auto"
+            className="flex items-center space-x-2 mx-auto"
           >
             {isLoading ? (
               <>
@@ -78,14 +80,14 @@ const ReadinessAssessment = ({
                 <span>Request Phase Assessment</span>
               </>
             )}
-          </button>
+          </Button>
         </div>
-      </div>
+      </Card>
     );
   }
 
   return (
-    <div className="bg-card border border-border rounded-lg overflow-hidden">
+    <Card className="overflow-hidden">
       <div className={`p-6 ${assessment.readyToProgress ? 'bg-success/5' : 'bg-warning/5'}`}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
@@ -168,25 +170,25 @@ const ReadinessAssessment = ({
         
         <div className="flex space-x-3 mt-6">
           {assessment.readyToProgress ? (
-            <button className="flex-1 px-6 py-3 bg-success text-success-foreground rounded-md font-medium hover:bg-success/90 transition-default focus-ring flex items-center justify-center space-x-2">
+            <Button variant="success" className="flex-1 flex items-center justify-center space-x-2">
               <Icon name="ArrowRightIcon" size={20} />
               <span>Proceed to Next Phase</span>
-            </button>
+            </Button>
           ) : (
-            <button className="flex-1 px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-default focus-ring">
+            <Button className="flex-1">
               Continue Working on Current Phase
-            </button>
+            </Button>
           )}
-          <button
+          <Button
+            variant="outline"
             onClick={onRequestAssessment}
             disabled={isLoading}
-            className="px-6 py-3 border border-border text-foreground rounded-md font-medium hover:bg-muted transition-default focus-ring disabled:opacity-50"
           >
             Re-assess
-          </button>
+          </Button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

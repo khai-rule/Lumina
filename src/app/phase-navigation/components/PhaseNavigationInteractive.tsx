@@ -11,6 +11,7 @@ import TaskChecklist from './TaskChecklist';
 import AIGuidancePanel from './AIGuidancePanel';
 import ReadinessAssessment from './ReadinessAssessment';
 import PhaseTimeline from './PhaseTimeline';
+import { Card } from '@/components/ui/Card';
 
 interface Task {
   id: string;
@@ -320,7 +321,7 @@ const PhaseNavigationInteractive = () => {
 
         <div className="p-6 lg:p-8 space-y-8">
           {/* Phase Progress Overview */}
-          <div className="bg-card border border-border rounded-lg p-6">
+          <Card className="p-6">
             <h2 className="text-xl font-semibold text-foreground mb-6">
               Project Phase Progress
             </h2>
@@ -328,7 +329,7 @@ const PhaseNavigationInteractive = () => {
               phases={progressPhases}
               orientation="horizontal"
             />
-          </div>
+          </Card>
 
           {/* Phase Timeline */}
           <PhaseTimeline phases={phases} onPhaseClick={handlePhaseClick} />
@@ -357,7 +358,7 @@ const PhaseNavigationInteractive = () => {
           </div>
 
           {/* Active Phase Tasks */}
-          <div className="bg-card border border-border rounded-lg p-6">
+          <Card className="p-6">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-xl font-semibold text-foreground">
@@ -377,7 +378,7 @@ const PhaseNavigationInteractive = () => {
               onTaskToggle={handleTaskToggle}
               onAddNote={handleAddNote}
             />
-          </div>
+          </Card>
 
           {/* Readiness Assessment */}
           <ReadinessAssessment

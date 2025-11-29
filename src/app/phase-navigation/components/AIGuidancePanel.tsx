@@ -1,4 +1,6 @@
 import Icon from '@/components/ui/AppIcon';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 interface AIGuidancePanelProps {
   guidance: {
@@ -11,7 +13,7 @@ interface AIGuidancePanelProps {
 
 const AIGuidancePanel = ({ guidance }: AIGuidancePanelProps) => {
   return (
-    <div className="bg-card border border-border rounded-lg p-6">
+    <Card className="p-6">
       <div className="flex items-center space-x-3 mb-4">
         <div className="p-2 bg-primary/10 rounded-lg">
           <Icon name="SparklesIcon" size={24} className="text-primary" />
@@ -64,27 +66,32 @@ const AIGuidancePanel = ({ guidance }: AIGuidancePanelProps) => {
           </h4>
           <div className="space-y-2">
             {guidance.resources.map((resource, index) => (
-              <a
+              <Button
                 key={index}
-                href={resource.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 border border-border rounded-md hover:bg-muted transition-default focus-ring"
+                variant="outline"
+                asChild
+                className="w-full justify-between h-auto p-3"
               >
-                <div className="flex items-center space-x-3">
-                  <Icon name="DocumentTextIcon" size={16} className="text-muted-foreground" />
-                  <div>
-                    <p className="text-sm font-medium text-foreground">{resource.title}</p>
-                    <p className="text-xs text-muted-foreground">{resource.type}</p>
+                <a
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Icon name="DocumentTextIcon" size={16} className="text-muted-foreground" />
+                    <div className="text-left">
+                      <p className="text-sm font-medium text-foreground">{resource.title}</p>
+                      <p className="text-xs text-muted-foreground font-normal">{resource.type}</p>
+                    </div>
                   </div>
-                </div>
-                <Icon name="ArrowTopRightOnSquareIcon" size={16} className="text-muted-foreground" />
-              </a>
+                  <Icon name="ArrowTopRightOnSquareIcon" size={16} className="text-muted-foreground" />
+                </a>
+              </Button>
             ))}
           </div>
         </div>
       )}
-    </div>
+    </Card>
   );
 };
 

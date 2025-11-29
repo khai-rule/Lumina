@@ -1,4 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Card } from '@/components/ui/Card';
 
 interface PhaseData {
   phase: string;
@@ -13,7 +14,7 @@ interface PhaseCompletionChartProps {
 
 const PhaseCompletionChart = ({ data }: PhaseCompletionChartProps) => {
   return (
-    <div className="bg-card border border-border rounded-lg p-6 shadow-subtle">
+    <Card className="p-6 shadow-subtle">
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-foreground mb-1">Phase Completion Status</h3>
         <p className="text-sm text-muted-foreground">Task completion across all SDLC phases</p>
@@ -47,7 +48,7 @@ const PhaseCompletionChart = ({ data }: PhaseCompletionChartProps) => {
           </BarChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </Card>
   );
 };
 

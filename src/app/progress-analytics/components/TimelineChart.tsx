@@ -1,4 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Card } from '@/components/ui/Card';
 
 interface TimelineData {
   date: string;
@@ -12,7 +13,7 @@ interface TimelineChartProps {
 
 const TimelineChart = ({ data }: TimelineChartProps) => {
   return (
-    <div className="bg-card border border-border rounded-lg p-6 shadow-subtle">
+    <Card className="p-6 shadow-subtle">
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-foreground mb-1">Timeline Adherence</h3>
         <p className="text-sm text-muted-foreground">Planned vs actual progress over time</p>
@@ -61,7 +62,7 @@ const TimelineChart = ({ data }: TimelineChartProps) => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </Card>
   );
 };
 
