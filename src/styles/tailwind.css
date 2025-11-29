@@ -8,35 +8,36 @@
 @layer base {
   :root {
     /* Primary Colors */
-    --color-primary: #2563EB; /* blue-600 */
-    --color-primary-foreground: #FFFFFF; /* white */
+    /* Primary Colors */
+    --color-primary: #1A1A1A; /* Black */
+    --color-primary-foreground: #FDF5E8; /* Warm Cream */
     
     /* Secondary Colors */
-    --color-secondary: #64748B; /* slate-500 */
-    --color-secondary-foreground: #FFFFFF; /* white */
+    --color-secondary: #E8E0D0; /* Darker Beige */
+    --color-secondary-foreground: #1A1A1A; /* Black */
     
     /* Accent Colors */
-    --color-accent: #10B981; /* emerald-500 */
-    --color-accent-foreground: #FFFFFF; /* white */
+    --color-accent: #D4C5A5; /* Gold/Beige */
+    --color-accent-foreground: #1A1A1A; /* Black */
     
     /* Background Colors */
-    --color-background: #FEFEFE; /* warm-white */
-    --color-foreground: #1E293B; /* slate-800 */
+    --color-background: #FDF5E8; /* Warm Cream */
+    --color-foreground: #1A1A1A; /* Black */
     
     /* Surface Colors */
-    --color-card: #F8FAFC; /* slate-50 */
-    --color-card-foreground: #1E293B; /* slate-800 */
-    --color-popover: #FFFFFF; /* white */
-    --color-popover-foreground: #1E293B; /* slate-800 */
+    --color-card: #FFFFFF; /* Pure White */
+    --color-card-foreground: #1A1A1A; /* Black */
+    --color-popover: #FFFFFF; /* Pure White */
+    --color-popover-foreground: #1A1A1A; /* Black */
     
     /* Muted Colors */
-    --color-muted: #F8FAFC; /* slate-50 */
-    --color-muted-foreground: #64748B; /* slate-500 */
+    --color-muted: #E8E0D0; /* Darker Beige */
+    --color-muted-foreground: #525252; /* Neutral 600 */
     
     /* Border & Input */
-    --color-border: #E2E8F0; /* slate-200 */
-    --color-input: #E2E8F0; /* slate-200 */
-    --color-ring: #2563EB; /* blue-600 */
+    --color-border: #D4C5A5; /* Gold/Beige */
+    --color-input: #D4C5A5; /* Gold/Beige */
+    --color-ring: #1A1A1A; /* Black */
     
     /* Status Colors */
     --color-success: #059669; /* emerald-600 */
