@@ -6,10 +6,13 @@ export default function Home() {
     <main className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Navigation */}
       <nav className="w-full px-6 py-6 flex justify-between items-center max-w-7xl mx-auto">
-        <div className="text-xl font-bold tracking-tight">Lumina</div>
+        <div className="flex items-center gap-2">
+          <img src="/icons/brand-logo.png" alt="Lumina Logo" className="w-8 h-8 object-contain" />
+          <span className="text-xl font-bold tracking-tight">Lumina</span>
+        </div>
         <div className="flex gap-6 text-sm font-medium">
           <Link href="/login" className="hover:opacity-70 transition-opacity">Login</Link>
-          <Link href="/signup" className="bg-primary text-primary-foreground px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
+          <Link href="/login" className="bg-primary text-primary-foreground px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
             Get Started
           </Link>
         </div>

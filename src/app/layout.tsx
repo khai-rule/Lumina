@@ -11,7 +11,7 @@ export const metadata = {
   description: 'A boilerplate project with Next.js and Tailwind CSS',
   icons: {
     icon: [
-      { url: '/favicon.ico', type: 'image/x-icon' }
+      { url: '/icons/brand-logo.png', type: 'image/png' }
     ],
   },
 };

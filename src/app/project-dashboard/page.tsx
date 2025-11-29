@@ -1,20 +1,29 @@
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import DashboardInteractive, { Project } from './components/DashboardInteractive';
 import { createClient } from '@/lib/supabase/server';
 
 export const metadata: Metadata = {
-  title: 'Project Dashboard - SDLC Navigator',
+  title: 'Project Dashboard - Lumina',
   description: 'Manage and track your software development lifecycle projects from a centralized dashboard with progress analytics and AI-powered insights.',
 };
 
 export default async function ProjectDashboardPage() {
   const supabase = createClient();
+  
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect('/login');
+  }
+
   let projects: Project[] = [];
 
   try {
     const { data, error } = await supabase
       .from('Project')
       .select('*, phases:Phase(*)')
+      .eq('userId', user.id) // Ensure we only fetch the user's projects
       .order('updatedAt', { ascending: false });
 
     if (data && !error) {
