@@ -13,6 +13,8 @@ export default function AuthModal() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -39,6 +41,11 @@ export default function AuthModal() {
 
     // Validation
     if (!isLogin) {
+      if (!firstName.trim() || !lastName.trim()) {
+        setError('Please enter your first and last name');
+        setIsLoading(false);
+        return;
+      }
       if (!isPasswordValid) {
         setError('Please meet all password requirements');
         setIsLoading(false);
@@ -65,6 +72,11 @@ export default function AuthModal() {
           password,
           options: {
             emailRedirectTo: `${location.origin}/auth/callback`,
+            data: {
+              first_name: firstName,
+              last_name: lastName,
+              full_name: `${firstName} ${lastName}`,
+            },
           },
         });
         if (error) throw error;
@@ -124,6 +136,41 @@ export default function AuthModal() {
         )}
 
         <form onSubmit={handleEmailAuth} className="space-y-4">
+          {!isLogin && (
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <div className="relative">
+                  <div className="absolute left-3 top-3 text-muted-foreground">
+                    <Icon name="UserIcon" size={20} />
+                  </div>
+                  <Input
+                    type="text"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="relative">
+                  <div className="absolute left-3 top-3 text-muted-foreground">
+                    <Icon name="UserIcon" size={20} />
+                  </div>
+                  <Input
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="space-y-2">
             <div className="relative">
               <div className="absolute left-3 top-3 text-muted-foreground">

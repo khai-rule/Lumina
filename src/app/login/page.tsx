@@ -8,9 +8,18 @@ export const metadata = {
   description: 'Access your Lumina workspace.',
 };
 
+import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user) {
+    redirect('/project-dashboard');
+  }
+
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-center p-4 relative">
       <Button 

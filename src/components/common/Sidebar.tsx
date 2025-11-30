@@ -52,7 +52,11 @@ interface NavItem {
   tooltip?: string;
 }
 
-const AppSidebar = () => {
+interface AppSidebarProps {
+  user: any; // Using any for now to avoid strict type issues with Supabase User type, can be refined later
+}
+
+const AppSidebar = ({ user }: AppSidebarProps) => {
   const pathname = usePathname();
   const { setOpen } = useSidebar();
 
@@ -131,6 +135,9 @@ const AppSidebar = () => {
         return <Info className="h-4 w-4 text-blue-500" />;
     }
   };
+
+  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || 'User';
+  const displayEmail = user?.email || 'No email';
 
   return (
     <Sidebar collapsible="icon" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
@@ -220,8 +227,8 @@ const AppSidebar = () => {
                 <User className="size-4" />
               </div>
               <div className="flex flex-col gap-0.5 leading-none">
-                <span className="font-semibold">John Doe</span>
-                <span className="text-xs text-muted-foreground">john@example.com</span>
+                <span className="font-semibold">{displayName}</span>
+                <span className="text-xs text-muted-foreground">{displayEmail}</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
