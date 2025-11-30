@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Cpu, Layers, Activity } from 'lucide-react';
+import { ArrowRight, BookOpen, FileText, CheckCircle, Share2, ClipboardList } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
@@ -39,25 +39,24 @@ export default function Home() {
     <main className="min-h-screen bg-background text-foreground flex flex-col relative overflow-hidden">
       {/* Navigation */}
       <nav className="w-full fixed top-0 left-1/2 -translate-x-1/2 h-[64px] bg-background/80 backdrop-blur-[999px] z-[999]">
-      <div className='max-w-7xl m-auto flex justify-between items-center z-10 h-[64px]'>
-
-        <div className="flex items-center gap-2">
-          <img src="/icons/brand-logo.png" alt="Lumina Logo" className="w-8 h-8 object-contain" />
-          <span className="text-xl font-bold tracking-tight">Lumina</span>
+        <div className='max-w-7xl m-auto flex justify-between items-center z-10 h-[64px] px-6'>
+          <div className="flex items-center gap-2">
+            <img src="/icons/brand-logo.png" alt="Lumina Logo" className="w-8 h-8 object-contain" />
+            <span className="text-xl font-bold tracking-tight">Lumina</span>
+          </div>
+          <div className="flex gap-6 text-sm font-medium items-center">
+            <Button asChild variant="ghost">
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/login">Get Started</Link>
+            </Button>
+          </div>
         </div>
-        <div className="flex gap-6 text-sm font-medium items-center">
-          <Button asChild variant="ghost">
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/login">Get Started</Link>
-          </Button>
-        </div>
-      </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="flex flex-col justify-center py-20  mx-auto w-full relative z-10 h-[85vh] mt-[64px] overflow-hidden">
+      <section className="flex flex-col justify-center py-20 mx-auto w-full relative z-10 h-[85vh] mt-[64px] overflow-hidden">
         {/* Light Ball Animation */}
         <div ref={lightBallRef} className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
           <div className="absolute left-1/2 top-0 h-full w-full -translate-x-1/2">
@@ -73,76 +72,217 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="space-y-8 max-w-7xl mx-auto  w-full flex flex-col justify-center items-center">
-          <div className='space-y-8 max-w-3xl text-center'>
-          <h1  className="text-white">
-            The Intelligent Way <br />
-            to Build Software.
-          </h1>
-          <p className="text-white text-balance">
-            Lumina guides you from concept to launch with AI-powered precision. 
-            An invisible interface for your most visible work.
-          </p>
+        <div className="space-y-8 max-w-7xl mx-auto w-full flex flex-col justify-center items-center px-6">
+          <div className='space-y-8 max-w-4xl text-center'>
+            <h1 className="text-white">
+              Master Your Software <br />
+              Development Lifecycle.
+            </h1>
+            <p className="text-white text-balance text-xl mx-auto">
+              Guide your team through every step of the SDLC with AI. 
+              From requirements elicitation to client handover, Lumina documents your journey and ensures Agile success.
+            </p>
           </div>
           <div className="flex flex-wrap gap-4 pt-4">
             <Button asChild size="lg" className="text-lg h-14 px-8">
               <Link href="/project-setup">
-                Start a Project <ArrowRight className="w-5 h-5 ml-2" />
+                Start Your Project <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg h-14 px-8">
-              <Link href="/about">
-                Learn More
+              <Link href="/sample-report">
+                View Sample Report
               </Link>
             </Button>
           </div>
         </div>
       </section>
 
+    
       {/* Features Section */}
       <section className="px-6 py-24 bg-white/50 border-t border-border relative z-10">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
-          <div className="space-y-4 p-6 rounded-xl hover:bg-white transition-colors duration-300">
-            <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4">
-              <Cpu className="w-6 h-6" />
-            </div>
-            <h3>AI Assistant</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Your partner in every phase. From generating requirements to debugging code, Lumina is always there.
-            </p>
-          </div>
-          
-          <div className="space-y-4 p-6 rounded-xl hover:bg-white transition-colors duration-300">
-            <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4">
-              <Layers className="w-6 h-6" />
-            </div>
-            <h3>Phase Tracking</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Seamless transitions from planning to deploy. Keep your team aligned with structured workflows.
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="mb-4">Complete SDLC Management</h2>
+            <p className="max-w-2xl mx-auto">
+              Streamline your process from concept to delivery with intelligent tools designed for modern software teams.
             </p>
           </div>
 
-          <div className="space-y-4 p-6 rounded-xl hover:bg-white transition-colors duration-300">
-            <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4">
-              <Activity className="w-6 h-6" />
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="space-y-4 p-6 rounded-xl hover:bg-white transition-colors duration-300 border border-transparent hover:border-border/50 hover:shadow-sm">
+              <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4 text-primary">
+                <CheckCircle className="w-6 h-6" />
+              </div>
+              <h3>AI Process Guidance</h3>
+              <p>
+                Step-by-step AI guidance for Agile, Waterfall, or custom workflows. Never miss a critical phase in your development cycle.
+              </p>
             </div>
-            <h3>Real-time Insights</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Live data on your project's pulse. Identify bottlenecks before they become blockers.
-            </p>
+            
+            <div className="space-y-4 p-6 rounded-xl hover:bg-white transition-colors duration-300 border border-transparent hover:border-border/50 hover:shadow-sm">
+              <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4 text-primary">
+                <BookOpen className="w-6 h-6" />
+              </div>
+              <h3>Smart Documentation</h3>
+              <p>
+                Capture requirements, meeting notes, and technical decisions in real-time. Lumina organizes everything automatically.
+              </p>
+            </div>
+
+            <div className="space-y-4 p-6 rounded-xl hover:bg-white transition-colors duration-300 border border-transparent hover:border-border/50 hover:shadow-sm">
+              <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4 text-primary">
+                <FileText className="w-6 h-6" />
+              </div>
+              <h3>Client-Ready Exports</h3>
+              <p>
+                Generate professional PDF reports and handover documentation with one click. Impress clients with comprehensive deliverables.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Workflow Section */}
+      <section className="py-24 px-6 bg-secondary/30 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                From requirements to handover <br />
+                <span className="text-primary/80">seamlessly documented.</span>
+              </h2>
+              <div className="space-y-8">
+                {[
+                  { step: "01", title: "Elicit & Plan", desc: "AI interviews stakeholders to gather and refine requirements, creating a solid project foundation." },
+                  { step: "02", title: "Build & Document", desc: "Track progress through sprints while Lumina auto-documents your technical decisions and changes." },
+                  { step: "03", title: "Export & Deliver", desc: "Hand over a complete, professional report to your clients, including all specs and user guides." }
+                ].map((item) => (
+                  <div key={item.step} className="flex gap-4">
+                    <div className="font-mono text-primary font-bold pt-1">{item.step}</div>
+                    <div>
+                      <h4>{item.title}</h4>
+                      <p>{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 bg-accent/20 blur-[100px] rounded-full" />
+              <div className="relative bg-card border border-border rounded-xl p-6 shadow-lg">
+                <div className="flex justify-between items-center mb-4 border-b border-border pb-4">
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500/50" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/50" />
+                  </div>
+                  <div className="text-xs font-mono">project-report.pdf</div>
+                </div>
+                <div className="space-y-4 font-mono text-sm">
+                  <div className="flex items-center gap-2 text-primary font-bold">
+                    <ClipboardList className="w-4 h-4" />
+                    <span>Project Handover Report</span>
+                  </div>
+                  <div className="space-y-2 pl-6 border-l-2 border-border">
+                    <div className="text-foreground font-semibold">1. Executive Summary</div>
+                    <div className="text-muted-foreground text-xs">The project was completed on time and within budget...</div>
+                  </div>
+                  <div className="space-y-2 pl-6 border-l-2 border-border">
+                    <div className="text-foreground font-semibold">2. Technical Specifications</div>
+                    <div className="text-muted-foreground text-xs">
+                      - Frontend: Next.js 14<br/>
+                      - Backend: Supabase<br/>
+                      - Infrastructure: Vercel
+                    </div>
+                  </div>
+                  <div className="flex justify-end pt-2">
+                    <div className="bg-primary/10 text-primary text-xs px-2 py-1 rounded flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3" /> Ready for Export
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Community Showcase */}
+      {/* <section className="py-24 px-6 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className=" mb-4">Success Stories</h2>
+            <p className="text-muted-foreground">See how teams are delivering better software with Lumina.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="group relative aspect-video rounded-xl overflow-hidden bg-secondary border border-border">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                <div className="absolute bottom-0 left-0 p-6 z-20">
+                  <h4 className="text-white mb-1">Project {i}</h4>
+                  <p className="text-white/80">Enterprise ERP Migration</p>
+                </div>
+                <div className="absolute inset-0 bg-secondary group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section> */}
+
+      {/* CTA Section */}
+      <section className="py-24 px-6 relative overflow-hidden z-10">
+        <div className="absolute inset-0 bg-accent/10" />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to streamline your SDLC?</h2>
+          <p className="text-xl text-muted-foreground mb-10">
+            Start documenting your journey today and deliver with confidence.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+             <Button asChild size="lg" className="h-14 px-8 text-lg">
+              <Link href="/login">Get Started for Free</Link>
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="px-6 py-12 border-t border-border mt-auto relative z-10">
-        <div className="max-w-7xl mx-auto flex justify-between items-end">
-          <div>
-            <div className="text-2xl font-bold mb-2">Lumina</div>
-            <p className="text-sm text-muted-foreground">© 2024 Lumina Systems.</p>
+      <footer className="px-6 py-12 border-t border-border mt-auto relative z-10 bg-background">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-12">
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex items-center gap-2 mb-4">
+              <img src="/icons/brand-logo.png" alt="Lumina Logo" className="w-6 h-6 object-contain" />
+              <span className="text-lg font-bold">Lumina</span>
+            </div>
+            <p className="text-muted-foreground max-w-sm">
+              Empowering developers to build better software, faster. The intelligent choice for modern engineering teams.
+            </p>
           </div>
-          <div className="text-sm text-muted-foreground">
-            Designed with <span className="text-primary">♥</span>
+          <div>
+            <h4 className="font-semibold mb-4">Product</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><Link href="#" className="hover:text-foreground transition-colors">Features</Link></li>
+              <li><Link href="#" className="hover:text-foreground transition-colors">Pricing</Link></li>
+              <li><Link href="#" className="hover:text-foreground transition-colors">Changelog</Link></li>
+              <li><Link href="#" className="hover:text-foreground transition-colors">Documentation</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Company</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><Link href="#" className="hover:text-foreground transition-colors">About</Link></li>
+              <li><Link href="#" className="hover:text-foreground transition-colors">Blog</Link></li>
+              <li><Link href="#" className="hover:text-foreground transition-colors">Careers</Link></li>
+              <li><Link href="#" className="hover:text-foreground transition-colors">Contact</Link></li>
+            </ul>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+          <p>© 2025 Lumina Systems Inc. All rights reserved.</p>
+          <div className="flex gap-6">
+            <Link href="#" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link href="#" className="hover:text-foreground transition-colors">Terms of Service</Link>
           </div>
         </div>
       </footer>
