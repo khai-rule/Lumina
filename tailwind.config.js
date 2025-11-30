@@ -72,7 +72,7 @@ module.exports = {
         mono: ['JetBrains Mono', 'Courier New', 'monospace'],
       },
       fontSize: {
-        'heading-1': ['3rem', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'heading-1': ['4.5rem', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '700' }],
         'heading-2': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.02em', fontWeight: '700' }],
         'heading-3': ['1.5rem', { lineHeight: '1.2', letterSpacing: '-0.02em', fontWeight: '600' }],
         'heading-4': ['1.25rem', { lineHeight: '1.4', letterSpacing: '-0.01em', fontWeight: '600' }],
