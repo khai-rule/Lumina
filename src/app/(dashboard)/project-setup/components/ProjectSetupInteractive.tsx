@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Sidebar from '@/components/common/Sidebar';
-import Header from '@/components/common/Header';
+
+
 import QuickActionToolbar from '@/components/common/QuickActionToolbar';
 import SetupWizardProgress from './SetupWizardProgress';
 import ProjectBasicInfoForm from './ProjectBasicInfoForm';
@@ -59,7 +59,7 @@ interface UploadedFile {
 const ProjectSetupInteractive = () => {
   const router = useRouter();
   const [isHydrated, setIsHydrated] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<string>('');
@@ -266,13 +266,9 @@ const ProjectSetupInteractive = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Sidebar isCollapsed={sidebarCollapsed} onToggleCollapse={setSidebarCollapsed} />
-      <Header sidebarCollapsed={sidebarCollapsed} />
 
       <main
-        className={`pt-16 transition-layout ${
-          sidebarCollapsed ? 'lg:pl-sidebar-collapsed' : 'lg:pl-sidebar'
-        }`}
+        className="transition-layout"
       >
         <div className="max-w-5xl mx-auto px-6 py-8">
           {/* Page Header */}

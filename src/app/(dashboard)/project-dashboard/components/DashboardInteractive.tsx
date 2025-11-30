@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Sidebar from '@/components/common/Sidebar';
-import Header from '@/components/common/Header';
+
+
 import QuickActionToolbar from '@/components/common/QuickActionToolbar';
 import DashboardMetrics from './DashboardMetrics';
 import ProjectFilters from './ProjectFilters';
@@ -68,7 +68,7 @@ const DashboardInteractive = ({
   initialActivities = [] 
 }: DashboardInteractiveProps) => {
   const [isHydrated, setIsHydrated] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [filters, setFilters] = useState<FilterOptions>({
     phase: 'all',
     status: 'all',
@@ -82,7 +82,6 @@ const DashboardInteractive = ({
   }, []);
 
   const projects = initialProjects;
-
 
 
 
@@ -172,13 +171,9 @@ const DashboardInteractive = ({
 
   return (
     <div className="min-h-screen bg-background">
-      <Sidebar
-        isCollapsed={sidebarCollapsed}
-        onToggleCollapse={setSidebarCollapsed} />
 
-      <Header sidebarCollapsed={sidebarCollapsed} />
-      
-      <main className={`transition-layout ${sidebarCollapsed ? 'ml-sidebar-collapsed' : 'ml-sidebar'} mt-16`}>
+
+      <main className="transition-layout">
         <div className="p-6">
           {/* Page Header */}
           <div className="flex items-center justify-between mb-8">

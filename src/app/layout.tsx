@@ -16,7 +16,10 @@ export const metadata = {
   },
 };
 
+import { Inter } from "next/font/google";
 import Assistant from '@/components/ai/Assistant';
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -25,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={inter.className}>
         {children}
         <Assistant />
         <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsdlcnavig6902back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.10" />

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Sidebar from '@/components/common/Sidebar';
-import Header from '@/components/common/Header';
+
+
 import ProjectContextHeader from '@/components/common/ProjectContextHeader';
 import PhaseProgressIndicator from '@/components/common/PhaseProgressIndicator';
 import QuickActionToolbar from '@/components/common/QuickActionToolbar';
@@ -36,7 +36,7 @@ interface Phase {
 
 const PhaseNavigationInteractive = () => {
   const [isHydrated, setIsHydrated] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [expandedPhase, setExpandedPhase] = useState<string | null>('requirements');
   const [isAssessing, setIsAssessing] = useState(false);
   const [showAssessment, setShowAssessment] = useState(false);
@@ -166,6 +166,7 @@ const PhaseNavigationInteractive = () => {
       'Some non-functional requirements lack specific measurable criteria',
       'Ensure all stakeholders have reviewed and approved the requirements document',
       'Consider edge cases and error scenarios in your use case documentation',
+      'Create a requirements traceability matrix for better tracking',
     ],
     resources: [
       {
@@ -301,16 +302,9 @@ const PhaseNavigationInteractive = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Sidebar
-        isCollapsed={sidebarCollapsed}
-        onToggleCollapse={setSidebarCollapsed}
-      />
-      <Header sidebarCollapsed={sidebarCollapsed} />
 
       <main
-        className={`transition-layout pt-16 ${
-          sidebarCollapsed ? 'lg:ml-sidebar-collapsed' : 'lg:ml-sidebar'
-        }`}
+        className="transition-layout"
       >
         <ProjectContextHeader
           projectName="E-Commerce Platform"

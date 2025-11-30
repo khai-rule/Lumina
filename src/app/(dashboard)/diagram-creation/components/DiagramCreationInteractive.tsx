@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Sidebar from '@/components/common/Sidebar';
-import Header from '@/components/common/Header';
+
+
 import ProjectContextHeader from '@/components/common/ProjectContextHeader';
 import QuickActionToolbar from '@/components/common/QuickActionToolbar';
 import DiagramCanvas from './DiagramCanvas';
@@ -14,7 +14,7 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 
 const DiagramCreationInteractive = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [selectedTool, setSelectedTool] = useState('select');
   const [activeView, setActiveView] = useState<'canvas' | 'templates'>('canvas');
   const [hasDiagramContent, setHasDiagramContent] = useState(false);
@@ -63,15 +63,10 @@ const DiagramCreationInteractive = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Sidebar 
-        isCollapsed={sidebarCollapsed} 
-        onToggleCollapse={setSidebarCollapsed} 
-      />
+
       
-      <div className={`transition-layout ${sidebarCollapsed ? 'lg:ml-16' : 'lg:ml-64'}`}>
-        <Header sidebarCollapsed={sidebarCollapsed} />
-        
-        <main className="pt-16">
+      <div className="transition-layout">
+        <main>
           <ProjectContextHeader
             projectName="E-Commerce Platform"
             currentPhase="Design"

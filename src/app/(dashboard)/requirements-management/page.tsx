@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Sidebar from '@/components/common/Sidebar';
-import Header from '@/components/common/Header';
+
+
 import ProjectContextHeader from '@/components/common/ProjectContextHeader';
 import RequirementsInteractive from './components/RequirementsInteractive';
 
@@ -18,10 +18,9 @@ export default function RequirementsManagementPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Sidebar />
-      <div className="lg:ml-sidebar">
-        <Header />
-        <main className="lg:mt-16">
+
+      <div className="">
+        <main>
           <ProjectContextHeader
             projectName="E-Commerce Platform"
             currentPhase="Requirements Analysis"

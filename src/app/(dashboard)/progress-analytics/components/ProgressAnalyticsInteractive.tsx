@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-import Sidebar from '@/components/common/Sidebar';
-import Header from '@/components/common/Header';
+
+
 import ProjectContextHeader from '@/components/common/ProjectContextHeader';
 import QuickActionToolbar from '@/components/common/QuickActionToolbar';
 import MetricsCard from './MetricsCard';
@@ -90,7 +90,7 @@ interface ExportOptions {
 
 const ProgressAnalyticsInteractive = () => {
   const router = useRouter();
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState('last-month');
   const [isHydrated, setIsHydrated] = useState(false);
@@ -310,12 +310,10 @@ const ProgressAnalyticsInteractive = () => {
 
   return (
     <div className="flex h-screen bg-background">
-      <Sidebar isCollapsed={sidebarCollapsed} onToggleCollapse={setSidebarCollapsed} />
 
-      <div className={`flex-1 flex flex-col transition-layout ${sidebarCollapsed ? 'ml-sidebar-collapsed' : 'ml-sidebar'}`}>
-        <Header sidebarCollapsed={sidebarCollapsed} />
 
-        <main className="flex-1 overflow-y-auto mt-16">
+      <div className="flex-1 flex flex-col transition-layout">
+        <main className="flex-1 overflow-y-auto">
           <ProjectContextHeader
             projectName="E-Commerce Platform"
             currentPhase="Development"
