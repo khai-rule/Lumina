@@ -187,13 +187,38 @@ const ProjectSetupInteractive = () => {
     }
   };
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
     setIsSaving(true);
     
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          projectInfo,
+          stakeholders,
+          methodology: selectedMethodology,
+          requirements,
+          files: uploadedFiles,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create project');
+      }
+
+      // Clear local storage
+      localStorage.removeItem('projectSetupData');
       localStorage.setItem('projectSetupCompleted', 'true');
-      router.push('/phase-navigation');
-    }, 1500);
+      
+      router.push('/project-dashboard');
+    } catch (error) {
+      console.error('Error creating project:', error);
+      // Ideally show an error message to the user here
+      setIsSaving(false);
+    }
   };
 
   const quickActions = [

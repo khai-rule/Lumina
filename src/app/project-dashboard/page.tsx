@@ -45,5 +45,55 @@ export default async function ProjectDashboardPage() {
     console.error('Failed to fetch projects:', e);
   }
 
-  return <DashboardInteractive initialProjects={projects} />;
+  // Calculate Metrics
+  const totalProjects = projects.length;
+  const activeProjects = projects.filter(p => p.status === 'active').length;
+  const completedPhases = projects.reduce((acc, p) => acc + p.completedPhases, 0);
+
+  const metrics = [
+    {
+      id: '1',
+      label: 'Total Projects',
+      value: totalProjects.toString(),
+      change: 'From database',
+      changeType: 'neutral' as const,
+      icon: 'FolderIcon'
+    },
+    {
+      id: '2',
+      label: 'Completed Phases',
+      value: completedPhases.toString(),
+      change: 'Across all projects',
+      changeType: 'positive' as const,
+      icon: 'CheckCircleIcon'
+    },
+    {
+      id: '3',
+      label: 'Active Projects',
+      value: activeProjects.toString(),
+      change: 'Currently in progress',
+      changeType: 'neutral' as const,
+      icon: 'PlayIcon'
+    },
+    {
+      id: '4',
+      label: 'AI Recommendations',
+      value: '0',
+      change: 'Coming soon',
+      changeType: 'neutral' as const,
+      icon: 'LightBulbIcon'
+    }
+  ];
+
+  // Generate Activities from Projects
+  const activities = projects.map(p => ({
+    id: `create-${p.id}`,
+    type: 'project_created' as const,
+    title: 'Project Created',
+    description: `${p.name} was initialized`,
+    timestamp: p.lastModified, // Using lastModified as proxy for now
+    projectName: p.name,
+  }));
+
+  return <DashboardInteractive initialProjects={projects} initialMetrics={metrics} initialActivities={activities} />;
 }

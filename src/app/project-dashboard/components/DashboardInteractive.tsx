@@ -58,9 +58,15 @@ interface Activity {
 
 interface DashboardInteractiveProps {
   initialProjects?: Project[];
+  initialMetrics?: Metric[];
+  initialActivities?: Activity[];
 }
 
-const DashboardInteractive = ({ initialProjects = [] }: DashboardInteractiveProps) => {
+const DashboardInteractive = ({ 
+  initialProjects = [], 
+  initialMetrics = [], 
+  initialActivities = [] 
+}: DashboardInteractiveProps) => {
   const [isHydrated, setIsHydrated] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [filters, setFilters] = useState<FilterOptions>({
@@ -75,166 +81,10 @@ const DashboardInteractive = ({ initialProjects = [] }: DashboardInteractiveProp
     setIsHydrated(true);
   }, []);
 
-  const mockProjects: Project[] = [
-  {
-    id: '1',
-    name: 'E-Commerce Platform',
-    description: 'Full-stack e-commerce solution with React frontend and Node.js backend, featuring user authentication, payment processing, and inventory management.',
-    currentPhase: 'Requirements Analysis',
-    completionPercentage: 35,
-    lastModified: 'Nov 25, 2024',
-    thumbnail: "https://images.unsplash.com/photo-1635405074683-96d6921a2a68",
-    thumbnailAlt: 'Modern e-commerce website interface displayed on laptop screen with shopping cart and product listings',
-    status: 'active',
-    totalPhases: 6,
-    completedPhases: 2
-  },
-  {
-    id: '2',
-    name: 'Task Management App',
-    description: 'Collaborative task management application with real-time updates, team collaboration features, and advanced project tracking capabilities.',
-    currentPhase: 'Design & Prototyping',
-    completionPercentage: 68,
-    lastModified: 'Nov 24, 2024',
-    thumbnail: "https://images.unsplash.com/photo-1609188343737-366b8dc25152",
-    thumbnailAlt: 'Clean task management dashboard showing project boards, task cards, and progress indicators on computer screen',
-    status: 'active',
-    totalPhases: 6,
-    completedPhases: 4
-  },
-  {
-    id: '3',
-    name: 'Learning Management System',
-    description: 'Comprehensive LMS platform for online education with course creation tools, student progress tracking, and interactive learning modules.',
-    currentPhase: 'Testing & QA',
-    completionPercentage: 92,
-    lastModified: 'Nov 23, 2024',
-    thumbnail: "https://img.rocket.new/generatedImages/rocket_gen_img_15ac06e37-1764145722023.png",
-    thumbnailAlt: 'Online learning platform interface showing course modules, video player, and student dashboard on tablet device',
-    status: 'active',
-    totalPhases: 6,
-    completedPhases: 5
-  },
-  {
-    id: '4',
-    name: 'Healthcare Portal',
-    description: 'Patient management system for healthcare providers with appointment scheduling, medical records, and telemedicine capabilities.',
-    currentPhase: 'Deployment',
-    completionPercentage: 100,
-    lastModified: 'Nov 22, 2024',
-    thumbnail: "https://img.rocket.new/generatedImages/rocket_gen_img_1204d2a6c-1764145720151.png",
-    thumbnailAlt: 'Healthcare management system interface displaying patient records, appointment calendar, and medical data charts',
-    status: 'completed',
-    totalPhases: 6,
-    completedPhases: 6
-  },
-  {
-    id: '5',
-    name: 'Financial Dashboard',
-    description: 'Real-time financial analytics dashboard with data visualization, reporting tools, and automated insights for business intelligence.',
-    currentPhase: 'Planning',
-    completionPercentage: 15,
-    lastModified: 'Nov 21, 2024',
-    thumbnail: "https://images.unsplash.com/photo-1583373325529-501e03a3a8e7",
-    thumbnailAlt: 'Financial analytics dashboard showing charts, graphs, and data visualization on multiple monitor setup',
-    status: 'paused',
-    totalPhases: 6,
-    completedPhases: 1
-  },
-  {
-    id: '6',
-    name: 'Social Media Platform',
-    description: 'Modern social networking platform with real-time messaging, content sharing, and community building features for enhanced user engagement.',
-    currentPhase: 'Implementation',
-    completionPercentage: 45,
-    lastModified: 'Nov 20, 2024',
-    thumbnail: "https://images.unsplash.com/photo-1652841236281-576b8cacee20",
-    thumbnailAlt: 'Social media platform interface showing news feed, user profiles, and messaging features on smartphone screen',
-    status: 'active',
-    totalPhases: 6,
-    completedPhases: 3
-  }];
-
-  const projects = initialProjects.length > 0 ? initialProjects : mockProjects;
+  const projects = initialProjects;
 
 
-  const mockMetrics: Metric[] = [
-  {
-    id: '1',
-    label: 'Total Projects',
-    value: '12',
-    change: '+2 this month',
-    changeType: 'positive',
-    icon: 'FolderIcon'
-  },
-  {
-    id: '2',
-    label: 'Completed Phases',
-    value: '48',
-    change: '+8 this week',
-    changeType: 'positive',
-    icon: 'CheckCircleIcon'
-  },
-  {
-    id: '3',
-    label: 'Active Projects',
-    value: '8',
-    change: 'No change',
-    changeType: 'neutral',
-    icon: 'PlayIcon'
-  },
-  {
-    id: '4',
-    label: 'AI Recommendations',
-    value: '24',
-    change: '+6 today',
-    changeType: 'positive',
-    icon: 'LightBulbIcon'
-  }];
 
-
-  const mockActivities: Activity[] = [
-  {
-    id: '1',
-    type: 'phase_completed',
-    title: 'Requirements Phase Completed',
-    description: 'Successfully completed requirements gathering for E-Commerce Platform',
-    timestamp: '2 hours ago',
-    projectName: 'E-Commerce Platform',
-    metadata: {
-      phase: 'Requirements Analysis'
-    }
-  },
-  {
-    id: '2',
-    type: 'ai_recommendation',
-    title: 'AI Improvement Suggestion',
-    description: 'AI suggests adding user acceptance criteria to current requirements',
-    timestamp: '4 hours ago',
-    projectName: 'Task Management App',
-    metadata: {
-      recommendation: 'Consider adding more detailed user acceptance criteria for better testing coverage'
-    }
-  },
-  {
-    id: '3',
-    type: 'milestone_reached',
-    title: 'Project Milestone Reached',
-    description: '75% completion milestone achieved for Learning Management System',
-    timestamp: '1 day ago',
-    projectName: 'Learning Management System',
-    metadata: {
-      milestone: '75% Completion'
-    }
-  },
-  {
-    id: '4',
-    type: 'project_created',
-    title: 'New Project Created',
-    description: 'Financial Dashboard project has been initialized',
-    timestamp: '2 days ago',
-    projectName: 'Financial Dashboard'
-  }];
 
 
   const filteredProjects = projects.filter((project) => {
@@ -350,7 +200,7 @@ const DashboardInteractive = ({ initialProjects = [] }: DashboardInteractiveProp
           </div>
 
           {/* Dashboard Metrics */}
-          <DashboardMetrics metrics={mockMetrics} />
+          <DashboardMetrics metrics={initialMetrics} />
 
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -369,7 +219,7 @@ const DashboardInteractive = ({ initialProjects = [] }: DashboardInteractiveProp
 
             {/* Activity Sidebar */}
             <div className="lg:col-span-1">
-              <RecentActivity activities={mockActivities} />
+              <RecentActivity activities={initialActivities} />
             </div>
           </div>
         </div>
