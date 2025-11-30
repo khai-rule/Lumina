@@ -74,24 +74,23 @@ export default function Home() {
         
         <div className="space-y-8 max-w-7xl mx-auto w-full flex flex-col justify-center items-center px-6">
           <div className='space-y-8 max-w-4xl text-center'>
-            <h1 className="text-white">
-              Master Your Software <br />
-              Development Lifecycle.
+            <h1 className="text-white text-5xl md:text-7xl font-bold tracking-tight">
+              Build Software <br />
+              That Matters.
             </h1>
-            <p className="text-white text-balance text-xl mx-auto">
-              Guide your team through every step of the SDLC with AI. 
-              From requirements elicitation to client handover, Lumina documents your journey and ensures Agile success.
+            <p className="text-white text-balance text-xl mx-auto max-w-2xl">
+              Don't just write code. Craft solutions. Lumina guides your journey from a spark of inspiration to a product that changes lives, documenting every meaningful decision along the way.
             </p>
           </div>
           <div className="flex flex-wrap gap-4 pt-4">
             <Button asChild size="lg" className="text-lg h-14 px-8">
               <Link href="/project-setup">
-                Start Your Project <ArrowRight className="w-5 h-5 ml-2" />
+                Start Your Journey <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg h-14 px-8">
               <Link href="/sample-report">
-                View Sample Report
+                See the Impact
               </Link>
             </Button>
           </div>
@@ -103,9 +102,9 @@ export default function Home() {
       <section className="px-6 py-24 bg-white/50 border-t border-border relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="mb-4">Complete SDLC Management</h2>
-            <p className="max-w-2xl mx-auto">
-              Streamline your process from concept to delivery with intelligent tools designed for modern software teams.
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">More Than Just Tools. A Philosophy.</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              We believe software development is a creative art. Our platform empowers you to focus on the 'why' while we handle the 'how'.
             </p>
           </div>
 
@@ -114,9 +113,9 @@ export default function Home() {
               <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4 text-primary">
                 <CheckCircle className="w-6 h-6" />
               </div>
-              <h3>AI Process Guidance</h3>
-              <p>
-                Step-by-step AI guidance for Agile, Waterfall, or custom workflows. Never miss a critical phase in your development cycle.
+              <h3 className="text-xl font-semibold">Guided Creativity</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                AI that understands your vision, suggesting the next best step to bring your ideas to life without stifling your flow.
               </p>
             </div>
             
@@ -124,9 +123,9 @@ export default function Home() {
               <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4 text-primary">
                 <BookOpen className="w-6 h-6" />
               </div>
-              <h3>Smart Documentation</h3>
-              <p>
-                Capture requirements, meeting notes, and technical decisions in real-time. Lumina organizes everything automatically.
+              <h3 className="text-xl font-semibold">The Story of Your Build</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Every requirement, every decision, every pivot—captured automatically. A living history of how you solved the impossible.
               </p>
             </div>
 
@@ -134,9 +133,9 @@ export default function Home() {
               <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4 text-primary">
                 <FileText className="w-6 h-6" />
               </div>
-              <h3>Client-Ready Exports</h3>
-              <p>
-                Generate professional PDF reports and handover documentation with one click. Impress clients with comprehensive deliverables.
+              <h3 className="text-xl font-semibold">Share Your Masterpiece</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Turn your development journey into a compelling narrative. Generate reports that show clients not just what you built, but the care you put into it.
               </p>
             </div>
           </div>
@@ -149,20 +148,19 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                From requirements to handover <br />
-                <span className="text-primary/80">seamlessly documented.</span>
+                From Spark to Legacy.
               </h2>
               <div className="space-y-8">
                 {[
-                  { step: "01", title: "Elicit & Plan", desc: "AI interviews stakeholders to gather and refine requirements, creating a solid project foundation." },
-                  { step: "02", title: "Build & Document", desc: "Track progress through sprints while Lumina auto-documents your technical decisions and changes." },
-                  { step: "03", title: "Export & Deliver", desc: "Hand over a complete, professional report to your clients, including all specs and user guides." }
+                  { step: "01", title: "Envision", desc: "Define the soul of your project. AI helps you ask the right questions to uncover the true needs of your users." },
+                  { step: "02", title: "Create", desc: "Build with purpose. As you code, Lumina silently weaves your technical decisions into a coherent narrative." },
+                  { step: "03", title: "Inspire", desc: "Deliver more than a product. Hand over a story of innovation, complete with the documentation to ensure its longevity." }
                 ].map((item) => (
                   <div key={item.step} className="flex gap-4">
                     <div className="font-mono text-primary font-bold pt-1">{item.step}</div>
                     <div>
-                      <h4>{item.title}</h4>
-                      <p>{item.desc}</p>
+                      <h4 className="text-lg font-semibold mb-1">{item.title}</h4>
+                      <p className="text-muted-foreground">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -235,13 +233,13 @@ export default function Home() {
       <section className="py-24 px-6 relative overflow-hidden z-10">
         <div className="absolute inset-0 bg-accent/10" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to streamline your SDLC?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to build something meaningful?</h2>
           <p className="text-xl text-muted-foreground mb-10">
-            Start documenting your journey today and deliver with confidence.
+            Your best work is waiting. Let Lumina help you tell its story.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
              <Button asChild size="lg" className="h-14 px-8 text-lg">
-              <Link href="/login">Get Started for Free</Link>
+              <Link href="/login">Begin Your Story</Link>
             </Button>
           </div>
         </div>
