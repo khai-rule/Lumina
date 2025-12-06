@@ -1,20 +1,27 @@
-"use client"
+"use client";
 
-import { useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
-import Icon from '@/components/ui/AppIcon';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/Card';
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import Icon from "@/components/ui/AppIcon";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/Card";
 
 export default function AuthModal() {
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -25,11 +32,11 @@ export default function AuthModal() {
 
   // Password requirements
   const requirements = [
-    { label: 'At least 8 characters', met: password.length >= 8 },
-    { label: 'Contains uppercase letter', met: /[A-Z]/.test(password) },
-    { label: 'Contains lowercase letter', met: /[a-z]/.test(password) },
-    { label: 'Contains number', met: /[0-9]/.test(password) },
-    { label: 'Contains special character', met: /[^A-Za-z0-9]/.test(password) },
+    { label: "At least 8 characters", met: password.length >= 8 },
+    { label: "Contains uppercase letter", met: /[A-Z]/.test(password) },
+    { label: "Contains lowercase letter", met: /[a-z]/.test(password) },
+    { label: "Contains number", met: /[0-9]/.test(password) },
+    { label: "Contains special character", met: /[^A-Za-z0-9]/.test(password) },
   ];
 
   const isPasswordValid = requirements.every((req) => req.met);
@@ -42,17 +49,17 @@ export default function AuthModal() {
     // Validation
     if (!isLogin) {
       if (!firstName.trim() || !lastName.trim()) {
-        setError('Please enter your first and last name');
+        setError("Please enter your first and last name");
         setIsLoading(false);
         return;
       }
       if (!isPasswordValid) {
-        setError('Please meet all password requirements');
+        setError("Please meet all password requirements");
         setIsLoading(false);
         return;
       }
       if (password !== confirmPassword) {
-        setError('Passwords do not match');
+        setError("Passwords do not match");
         setIsLoading(false);
         return;
       }
@@ -65,7 +72,7 @@ export default function AuthModal() {
           password,
         });
         if (error) throw error;
-        router.push('/project-dashboard');
+        router.push("/project-dashboard");
       } else {
         const { error } = await supabase.auth.signUp({
           email,
@@ -90,16 +97,17 @@ export default function AuthModal() {
 
   if (showSuccess) {
     return (
-      <Card className="w-full max-w-md text-center">
+      <Card className='w-full max-w-md text-center'>
         <CardHeader>
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-              <Icon name="EnvelopeIcon" size={32} className="text-green-600" />
+          <div className='flex justify-center mb-4'>
+            <div className='w-16 h-16 bg-green-100 rounded-full flex items-center justify-center'>
+              <Icon name='EnvelopeIcon' size={32} className='text-green-600' />
             </div>
           </div>
           <CardTitle>Check your email</CardTitle>
           <CardDescription>
-            We've sent a confirmation link to <strong>{email}</strong>. Please click the link to activate your account.
+            We&apos;ve sent a confirmation link to <strong>{email}</strong>.
+            Please click the link to activate your account.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -108,7 +116,7 @@ export default function AuthModal() {
               setShowSuccess(false);
               setIsLogin(true);
             }}
-            className="w-full"
+            className='w-full'
           >
             Back to Sign In
           </Button>
@@ -118,103 +126,115 @@ export default function AuthModal() {
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader className="text-center space-y-2">
-        <CardTitle>
-          {isLogin ? 'Welcome Back' : 'Create Account'}
-        </CardTitle>
+    <Card className='w-full max-w-md'>
+      <CardHeader className='text-center space-y-2'>
+        <CardTitle>{isLogin ? "Welcome Back" : "Create Account"}</CardTitle>
         <CardDescription>
-          {isLogin ? 'Enter your credentials to access your workspace.' : 'Start your intelligent SDLC journey today.'}
+          {isLogin
+            ? "Enter your credentials to access your workspace."
+            : "Start your intelligent SDLC journey today."}
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className='space-y-4'>
         {error && (
-          <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md border border-destructive/20">
+          <div className='bg-destructive/10 text-destructive text-sm p-3 rounded-md border border-destructive/20'>
             {error}
           </div>
         )}
 
-        <form onSubmit={handleEmailAuth} className="space-y-4">
+        <form onSubmit={handleEmailAuth} className='space-y-4'>
           {!isLogin && (
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <div className="relative">
-                  <div className="absolute left-3 top-3 text-muted-foreground">
-                    <Icon name="UserIcon" size={20} />
+            <div className='grid grid-cols-2 gap-4'>
+              <div className='space-y-2'>
+                <div className='relative'>
+                  <div className='absolute left-3 top-3 text-muted-foreground'>
+                    <Icon name='UserIcon' size={20} />
                   </div>
                   <Input
-                    type="text"
-                    placeholder="First Name"
+                    type='text'
+                    placeholder='First Name'
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     required
-                    className="pl-10"
+                    className='pl-10'
                   />
                 </div>
               </div>
-              <div className="space-y-2">
-                <div className="relative">
-                  <div className="absolute left-3 top-3 text-muted-foreground">
-                    <Icon name="UserIcon" size={20} />
+              <div className='space-y-2'>
+                <div className='relative'>
+                  <div className='absolute left-3 top-3 text-muted-foreground'>
+                    <Icon name='UserIcon' size={20} />
                   </div>
                   <Input
-                    type="text"
-                    placeholder="Last Name"
+                    type='text'
+                    placeholder='Last Name'
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     required
-                    className="pl-10"
+                    className='pl-10'
                   />
                 </div>
               </div>
             </div>
           )}
 
-          <div className="space-y-2">
-            <div className="relative">
-              <div className="absolute left-3 top-3 text-muted-foreground">
-                <Icon name="EnvelopeIcon" size={20} />
+          <div className='space-y-2'>
+            <div className='relative'>
+              <div className='absolute left-3 top-3 text-muted-foreground'>
+                <Icon name='EnvelopeIcon' size={20} />
               </div>
               <Input
-                type="email"
-                placeholder="Email address"
+                type='email'
+                placeholder='Email address'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="pl-10"
+                className='pl-10'
               />
             </div>
           </div>
-          <div className="space-y-2">
-            <div className="relative">
-              <div className="absolute left-3 top-3 text-muted-foreground">
-                <Icon name="LockClosedIcon" size={20} />
+          <div className='space-y-2'>
+            <div className='relative'>
+              <div className='absolute left-3 top-3 text-muted-foreground'>
+                <Icon name='LockClosedIcon' size={20} />
               </div>
               <Input
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Password"
+                type={showPassword ? "text" : "password"}
+                placeholder='Password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="pl-10 pr-10"
+                className='pl-10 pr-10'
               />
               <Button
-                type="button"
-                variant="ghost"
-                size="icon"
+                type='button'
+                variant='ghost'
+                size='icon'
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                className='absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent'
               >
-                {showPassword ? <Icon name="EyeIcon" size={20} /> : <Icon name="EyeSlashIcon" size={20} />}
+                {showPassword ? (
+                  <Icon name='EyeIcon' size={20} />
+                ) : (
+                  <Icon name='EyeSlashIcon' size={20} />
+                )}
               </Button>
             </div>
             {!isLogin && (
-              <div className="grid grid-cols-1 gap-1 mt-2">
+              <div className='grid grid-cols-1 gap-1 mt-2'>
                 {requirements.map((req, index) => (
-                  <div key={index} className="flex items-center gap-2 text-xs">
-                    <div className={`w-1.5 h-1.5 rounded-full ${req.met ? 'bg-green-500' : 'bg-muted-foreground/30'}`} />
-                    <span className={req.met ? 'text-green-600' : 'text-muted-foreground'}>{req.label}</span>
+                  <div key={index} className='flex items-center gap-2 text-xs'>
+                    <div
+                      className={`w-1.5 h-1.5 rounded-full ${req.met ? "bg-green-500" : "bg-muted-foreground/30"}`}
+                    />
+                    <span
+                      className={
+                        req.met ? "text-green-600" : "text-muted-foreground"
+                      }
+                    >
+                      {req.label}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -222,51 +242,58 @@ export default function AuthModal() {
           </div>
 
           {!isLogin && (
-            <div className="space-y-2">
-              <div className="relative">
-                <div className="absolute left-3 top-3 text-muted-foreground">
-                  <Icon name="LockClosedIcon" size={20} />
+            <div className='space-y-2'>
+              <div className='relative'>
+                <div className='absolute left-3 top-3 text-muted-foreground'>
+                  <Icon name='LockClosedIcon' size={20} />
                 </div>
                 <Input
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  placeholder="Confirm Password"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder='Confirm Password'
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
-                  className="pl-10 pr-10"
+                  className='pl-10 pr-10'
                 />
                 <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
+                  type='button'
+                  variant='ghost'
+                  size='icon'
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  className='absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent'
                 >
-                  {showConfirmPassword ? <Icon name="EyeIcon" size={20} /> : <Icon name="EyeSlashIcon" size={20} />}
+                  {showConfirmPassword ? (
+                    <Icon name='EyeIcon' size={20} />
+                  ) : (
+                    <Icon name='EyeSlashIcon' size={20} />
+                  )}
                 </Button>
               </div>
             </div>
           )}
 
-          <Button type="submit" disabled={isLoading} className="w-full">
+          <Button type='submit' disabled={isLoading} className='w-full'>
             {isLoading ? (
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin' />
             ) : (
               <>
-                {isLogin ? 'Sign In' : 'Create Account'} <Icon name="ArrowRightIcon" size={20} className="ml-2" />
+                {isLogin ? "Sign In" : "Create Account"}{" "}
+                <Icon name='ArrowRightIcon' size={20} className='ml-2' />
               </>
             )}
           </Button>
         </form>
       </CardContent>
 
-      <CardFooter className="justify-center">
+      <CardFooter className='justify-center'>
         <Button
-          variant="link"
+          variant='link'
           onClick={() => setIsLogin(!isLogin)}
-          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className='text-sm text-muted-foreground hover:text-foreground transition-colors'
         >
-          {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+          {isLogin
+            ? "Don't have an account? Sign up"
+            : "Already have an account? Sign in"}
         </Button>
       </CardFooter>
     </Card>

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import Icon from '@/components/ui/AppIcon';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { useState, useRef, useEffect, useCallback } from "react";
+import Icon from "@/components/ui/AppIcon";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 
 interface DiagramCanvasProps {
   selectedTool: string;
@@ -12,7 +12,7 @@ interface DiagramCanvasProps {
 
 interface DrawingElement {
   id: string;
-  type: 'rectangle' | 'circle' | 'line' | 'text';
+  type: "rectangle" | "circle" | "line" | "text";
   x: number;
   y: number;
   width?: number;
@@ -21,26 +21,23 @@ interface DrawingElement {
   color: string;
 }
 
-const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) => {
+const DiagramCanvas = ({
+  selectedTool,
+  onDiagramChange,
+}: DiagramCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [elements, setElements] = useState<DrawingElement[]>([]);
-  const [currentElement, setCurrentElement] = useState<DrawingElement | null>(null);
+  const [currentElement, setCurrentElement] = useState<DrawingElement | null>(
+    null
+  );
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    onDiagramChange(elements.length > 0);
-  }, [elements, onDiagramChange]);
-
-  useEffect(() => {
-    redrawCanvas();
-  }, [elements]);
-
-  const redrawCanvas = () => {
+  const redrawCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -51,27 +48,49 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
       ctx.lineWidth = 2;
 
       switch (element.type) {
-        case 'rectangle':
-          ctx.strokeRect(element.x, element.y, element.width || 0, element.height || 0);
+        case "rectangle":
+          ctx.strokeRect(
+            element.x,
+            element.y,
+            element.width || 0,
+            element.height || 0
+          );
           break;
-        case 'circle':
+        case "circle":
           ctx.beginPath();
-          ctx.arc(element.x, element.y, (element.width || 0) / 2, 0, 2 * Math.PI);
+          ctx.arc(
+            element.x,
+            element.y,
+            (element.width || 0) / 2,
+            0,
+            2 * Math.PI
+          );
           ctx.stroke();
           break;
-        case 'line':
+        case "line":
           ctx.beginPath();
           ctx.moveTo(element.x, element.y);
-          ctx.lineTo(element.x + (element.width || 0), element.y + (element.height || 0));
+          ctx.lineTo(
+            element.x + (element.width || 0),
+            element.y + (element.height || 0)
+          );
           ctx.stroke();
           break;
-        case 'text':
-          ctx.font = '16px Inter';
-          ctx.fillText(element.text || '', element.x, element.y);
+        case "text":
+          ctx.font = "16px Inter";
+          ctx.fillText(element.text || "", element.x, element.y);
           break;
       }
     });
-  };
+  }, [elements]);
+
+  useEffect(() => {
+    onDiagramChange(elements.length > 0);
+  }, [elements, onDiagramChange]);
+
+  useEffect(() => {
+    redrawCanvas();
+  }, [redrawCanvas]);
 
   const getMousePos = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -85,22 +104,22 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (selectedTool === 'select') return;
+    if (selectedTool === "select") return;
 
     const pos = getMousePos(e);
     setStartPos(pos);
     setIsDrawing(true);
 
-    if (selectedTool === 'text') {
-      const text = prompt('Enter text:');
+    if (selectedTool === "text") {
+      const text = prompt("Enter text:");
       if (text) {
         const newElement: DrawingElement = {
           id: Date.now().toString(),
-          type: 'text',
+          type: "text",
           x: pos.x,
           y: pos.y,
           text,
-          color: '#2563EB',
+          color: "#2563EB",
         };
         setElements((prev) => [...prev, newElement]);
       }
@@ -110,18 +129,18 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
 
     const newElement: DrawingElement = {
       id: Date.now().toString(),
-      type: selectedTool as DrawingElement['type'],
+      type: selectedTool as DrawingElement["type"],
       x: pos.x,
       y: pos.y,
       width: 0,
       height: 0,
-      color: '#2563EB',
+      color: "#2563EB",
     };
     setCurrentElement(newElement);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDrawing || !currentElement || selectedTool === 'text') return;
+    if (!isDrawing || !currentElement || selectedTool === "text") return;
 
     const pos = getMousePos(e);
     const width = pos.x - startPos.x;
@@ -137,7 +156,7 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     redrawCanvas();
@@ -146,15 +165,21 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
     ctx.lineWidth = 2;
 
     switch (currentElement.type) {
-      case 'rectangle':
+      case "rectangle":
         ctx.strokeRect(currentElement.x, currentElement.y, width, height);
         break;
-      case 'circle':
+      case "circle":
         ctx.beginPath();
-        ctx.arc(currentElement.x, currentElement.y, Math.abs(width) / 2, 0, 2 * Math.PI);
+        ctx.arc(
+          currentElement.x,
+          currentElement.y,
+          Math.abs(width) / 2,
+          0,
+          2 * Math.PI
+        );
         ctx.stroke();
         break;
-      case 'line':
+      case "line":
         ctx.beginPath();
         ctx.moveTo(currentElement.x, currentElement.y);
         ctx.lineTo(pos.x, pos.y);
@@ -166,7 +191,10 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
   const handleMouseUp = () => {
     if (!isDrawing || !currentElement) return;
 
-    if (Math.abs(currentElement.width || 0) > 5 || Math.abs(currentElement.height || 0) > 5) {
+    if (
+      Math.abs(currentElement.width || 0) > 5 ||
+      Math.abs(currentElement.height || 0) > 5
+    ) {
       setElements((prev) => [...prev, currentElement]);
     }
 
@@ -184,27 +212,27 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
   };
 
   return (
-    <Card className="relative w-full h-full overflow-hidden p-0">
-      <div className="absolute top-4 right-4 flex space-x-2 z-10">
+    <Card className='relative w-full h-full overflow-hidden p-0'>
+      <div className='absolute top-4 right-4 flex space-x-2 z-10'>
         <Button
-          variant="secondary"
-          size="icon"
+          variant='secondary'
+          size='icon'
           onClick={undoLastAction}
           disabled={elements.length === 0}
-          className="h-9 w-9 bg-card border border-border hover:bg-muted"
-          title="Undo"
+          className='h-9 w-9 bg-card border border-border hover:bg-muted'
+          title='Undo'
         >
-          <Icon name="ArrowUturnLeftIcon" size={16} />
+          <Icon name='ArrowUturnLeftIcon' size={16} />
         </Button>
         <Button
-          variant="secondary"
-          size="icon"
+          variant='secondary'
+          size='icon'
           onClick={clearCanvas}
           disabled={elements.length === 0}
-          className="h-9 w-9 bg-card border border-border hover:bg-muted"
-          title="Clear Canvas"
+          className='h-9 w-9 bg-card border border-border hover:bg-muted'
+          title='Clear Canvas'
         >
-          <Icon name="TrashIcon" size={16} />
+          <Icon name='TrashIcon' size={16} />
         </Button>
       </div>
 
@@ -212,7 +240,7 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
         ref={canvasRef}
         width={800}
         height={600}
-        className="w-full h-full cursor-crosshair"
+        className='w-full h-full cursor-crosshair'
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -220,11 +248,17 @@ const DiagramCanvas = ({ selectedTool, onDiagramChange }: DiagramCanvasProps) =>
       />
 
       {elements.length === 0 && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="text-center text-muted-foreground">
-            <Icon name="PencilIcon" size={48} className="mx-auto mb-3 opacity-50" />
-            <p className="text-lg font-medium">Start Drawing</p>
-            <p className="text-sm">Select a tool and click to begin creating your diagram</p>
+        <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
+          <div className='text-center text-muted-foreground'>
+            <Icon
+              name='PencilIcon'
+              size={48}
+              className='mx-auto mb-3 opacity-50'
+            />
+            <p className='text-lg font-medium'>Start Drawing</p>
+            <p className='text-sm'>
+              Select a tool and click to begin creating your diagram
+            </p>
           </div>
         </div>
       )}

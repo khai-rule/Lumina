@@ -1,6 +1,6 @@
-import Icon from '@/components/ui/AppIcon';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import Icon from "@/components/ui/AppIcon";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 
 interface ReadinessAssessmentProps {
   assessment: {
@@ -8,7 +8,7 @@ interface ReadinessAssessmentProps {
     readyToProgress: boolean;
     criteria: Array<{
       name: string;
-      status: 'passed' | 'warning' | 'failed';
+      status: "passed" | "warning" | "failed";
       score: number;
       feedback: string;
     }>;
@@ -23,60 +23,66 @@ const ReadinessAssessment = ({
   onRequestAssessment,
   isLoading,
 }: ReadinessAssessmentProps) => {
-  const getStatusIcon = (status: 'passed' | 'warning' | 'failed') => {
+  const getStatusIcon = (status: "passed" | "warning" | "failed") => {
     switch (status) {
-      case 'passed':
-        return 'CheckCircleIcon';
-      case 'warning':
-        return 'ExclamationTriangleIcon';
-      case 'failed':
-        return 'XCircleIcon';
+      case "passed":
+        return "CheckCircleIcon";
+      case "warning":
+        return "ExclamationTriangleIcon";
+      case "failed":
+        return "XCircleIcon";
     }
   };
 
-  const getStatusColor = (status: 'passed' | 'warning' | 'failed') => {
+  const getStatusColor = (status: "passed" | "warning" | "failed") => {
     switch (status) {
-      case 'passed':
-        return 'text-success';
-      case 'warning':
-        return 'text-warning';
-      case 'failed':
-        return 'text-error';
+      case "passed":
+        return "text-success";
+      case "warning":
+        return "text-warning";
+      case "failed":
+        return "text-error";
     }
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-success';
-    if (score >= 60) return 'text-warning';
-    return 'text-error';
+    if (score >= 80) return "text-success";
+    if (score >= 60) return "text-warning";
+    return "text-error";
   };
 
   if (!assessment) {
     return (
-      <Card className="p-8 text-center">
-        <div className="max-w-md mx-auto">
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Icon name="ClipboardDocumentCheckIcon" size={32} className="text-primary" />
+      <Card className='p-8 text-center'>
+        <div className='max-w-md mx-auto'>
+          <div className='w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4'>
+            <Icon
+              name='ClipboardDocumentCheckIcon'
+              size={32}
+              className='text-primary'
+            />
           </div>
-          <h3 className="text-lg font-semibold text-foreground mb-2">
+          <h3 className='text-lg font-semibold text-foreground mb-2'>
             Ready for Phase Assessment?
           </h3>
-          <p className="text-muted-foreground mb-6">
-            Request an AI-powered evaluation to determine if you're ready to progress to the next phase. The assessment will analyze your completed tasks, deliverables, and overall progress.
+          <p className='text-muted-foreground mb-6'>
+            Request an AI-powered evaluation to determine if you&apos;re ready
+            to progress to the next phase. The assessment will analyze your
+            completed tasks, deliverables, and overall progress.
           </p>
           <Button
             onClick={onRequestAssessment}
             disabled={isLoading}
-            className="flex items-center space-x-2 mx-auto"
+            className='flex items-center space-x-2 mx-auto'
           >
             {isLoading ? (
               <>
-                <Icon name="ArrowPathIcon" size={20} className="animate-spin" />
+                <Icon name='ArrowPathIcon' size={20} className='animate-spin' />
                 <span>Analyzing...</span>
               </>
             ) : (
               <>
-                <Icon name="SparklesIcon" size={20} />
+                <Icon name='SparklesIcon' size={20} />
                 <span>Request Phase Assessment</span>
               </>
             )}
@@ -87,61 +93,87 @@ const ReadinessAssessment = ({
   }
 
   return (
-    <Card className="overflow-hidden">
-      <div className={`p-6 ${assessment.readyToProgress ? 'bg-success/5' : 'bg-warning/5'}`}>
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <div className={`p-2 rounded-lg ${assessment.readyToProgress ? 'bg-success/10' : 'bg-warning/10'}`}>
+    <Card className='overflow-hidden'>
+      <div
+        className={`p-6 ${assessment.readyToProgress ? "bg-success/5" : "bg-warning/5"}`}
+      >
+        <div className='flex items-center justify-between mb-4'>
+          <div className='flex items-center space-x-3'>
+            <div
+              className={`p-2 rounded-lg ${assessment.readyToProgress ? "bg-success/10" : "bg-warning/10"}`}
+            >
               <Icon
-                name={assessment.readyToProgress ? 'CheckBadgeIcon' : 'ExclamationTriangleIcon'}
+                name={
+                  assessment.readyToProgress
+                    ? "CheckBadgeIcon"
+                    : "ExclamationTriangleIcon"
+                }
                 size={24}
-                className={assessment.readyToProgress ? 'text-success' : 'text-warning'}
+                className={
+                  assessment.readyToProgress ? "text-success" : "text-warning"
+                }
               />
             </div>
             <div>
-              <h3 className="font-semibold text-foreground">Phase Readiness Assessment</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className='font-semibold text-foreground'>
+                Phase Readiness Assessment
+              </h3>
+              <p className='text-sm text-muted-foreground'>
                 {assessment.readyToProgress
-                  ? 'You are ready to progress to the next phase' :'Some improvements needed before progressing'}
+                  ? "You are ready to progress to the next phase"
+                  : "Some improvements needed before progressing"}
               </p>
             </div>
           </div>
-          <div className="text-right">
-            <p className={`text-3xl font-bold ${getScoreColor(assessment.overallScore)}`}>
+          <div className='text-right'>
+            <p
+              className={`text-3xl font-bold ${getScoreColor(assessment.overallScore)}`}
+            >
               {assessment.overallScore}%
             </p>
-            <p className="text-xs text-muted-foreground">Overall Score</p>
+            <p className='text-xs text-muted-foreground'>Overall Score</p>
           </div>
         </div>
       </div>
-      
-      <div className="p-6">
-        <h4 className="font-medium text-foreground mb-4">Assessment Criteria</h4>
-        <div className="space-y-4 mb-6">
+
+      <div className='p-6'>
+        <h4 className='font-medium text-foreground mb-4'>
+          Assessment Criteria
+        </h4>
+        <div className='space-y-4 mb-6'>
           {assessment.criteria.map((criterion, index) => (
-            <div key={index} className="border border-border rounded-lg p-4">
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex items-center space-x-3">
+            <div key={index} className='border border-border rounded-lg p-4'>
+              <div className='flex items-start justify-between mb-2'>
+                <div className='flex items-center space-x-3'>
                   <Icon
                     name={getStatusIcon(criterion.status) as any}
                     size={20}
                     className={getStatusColor(criterion.status)}
                   />
                   <div>
-                    <h5 className="font-medium text-foreground">{criterion.name}</h5>
-                    <p className="text-sm text-muted-foreground mt-1">{criterion.feedback}</p>
+                    <h5 className='font-medium text-foreground'>
+                      {criterion.name}
+                    </h5>
+                    <p className='text-sm text-muted-foreground mt-1'>
+                      {criterion.feedback}
+                    </p>
                   </div>
                 </div>
-                <span className={`text-lg font-semibold ${getScoreColor(criterion.score)}`}>
+                <span
+                  className={`text-lg font-semibold ${getScoreColor(criterion.score)}`}
+                >
                   {criterion.score}%
                 </span>
               </div>
-              <div className="mt-3">
-                <div className="w-full bg-muted rounded-full h-2">
+              <div className='mt-3'>
+                <div className='w-full bg-muted rounded-full h-2'>
                   <div
                     className={`h-2 rounded-full transition-all duration-500 ${
-                      criterion.status === 'passed' ?'bg-success'
-                        : criterion.status === 'warning' ?'bg-warning' :'bg-error'
+                      criterion.status === "passed"
+                        ? "bg-success"
+                        : criterion.status === "warning"
+                          ? "bg-warning"
+                          : "bg-error"
                     }`}
                     style={{ width: `${criterion.score}%` }}
                   />
@@ -150,37 +182,44 @@ const ReadinessAssessment = ({
             </div>
           ))}
         </div>
-        
+
         {assessment.recommendations.length > 0 && (
-          <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-            <h4 className="font-medium text-foreground mb-3 flex items-center space-x-2">
-              <Icon name="LightBulbIcon" size={18} className="text-primary" />
+          <div className='bg-primary/5 border border-primary/20 rounded-lg p-4'>
+            <h4 className='font-medium text-foreground mb-3 flex items-center space-x-2'>
+              <Icon name='LightBulbIcon' size={18} className='text-primary' />
               <span>Recommendations for Improvement</span>
             </h4>
-            <ul className="space-y-2">
+            <ul className='space-y-2'>
               {assessment.recommendations.map((rec, index) => (
-                <li key={index} className="flex items-start space-x-2 text-sm">
-                  <Icon name="ArrowRightIcon" size={16} className="text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">{rec}</span>
+                <li key={index} className='flex items-start space-x-2 text-sm'>
+                  <Icon
+                    name='ArrowRightIcon'
+                    size={16}
+                    className='text-primary flex-shrink-0 mt-0.5'
+                  />
+                  <span className='text-muted-foreground'>{rec}</span>
                 </li>
               ))}
             </ul>
           </div>
         )}
-        
-        <div className="flex space-x-3 mt-6">
+
+        <div className='flex space-x-3 mt-6'>
           {assessment.readyToProgress ? (
-            <Button variant="success" className="flex-1 flex items-center justify-center space-x-2">
-              <Icon name="ArrowRightIcon" size={20} />
+            <Button
+              variant='success'
+              className='flex-1 flex items-center justify-center space-x-2'
+            >
+              <Icon name='ArrowRightIcon' size={20} />
               <span>Proceed to Next Phase</span>
             </Button>
           ) : (
-            <Button className="flex-1">
+            <Button className='flex-1'>
               Continue Working on Current Phase
             </Button>
           )}
           <Button
-            variant="outline"
+            variant='outline'
             onClick={onRequestAssessment}
             disabled={isLoading}
           >
